@@ -60,7 +60,7 @@ namespace dlib
 
         FILE* outfile = fopen(filename.c_str(), "wb");
         if (!outfile)
-            throw image_save_error("Can't open file " + filename + " for writing.");
+            abort();
 
         jpeg_compress_struct cinfo;
 
@@ -75,7 +75,7 @@ namespace dlib
              */
             jpeg_destroy_compress(&cinfo);
             fclose(outfile);
-            throw image_save_error("save_jpeg: error while writing " + filename);
+            abort();
         }
          
         jpeg_create_compress(&cinfo);
@@ -122,7 +122,7 @@ namespace dlib
 
         FILE* outfile = fopen(filename.c_str(), "wb");
         if (!outfile)
-            throw image_save_error("Can't open file " + filename + " for writing.");
+            abort();
 
         jpeg_compress_struct cinfo;
 
@@ -137,7 +137,7 @@ namespace dlib
              */
             jpeg_destroy_compress(&cinfo);
             fclose(outfile);
-            throw image_save_error("save_jpeg: error while writing " + filename);
+            abort();
         }
          
         jpeg_create_compress(&cinfo);

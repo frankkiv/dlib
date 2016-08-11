@@ -1085,7 +1085,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type vector"); 
+            abort(); 
         }
     }
 
@@ -1106,7 +1106,7 @@ namespace dlib
             item.x() = 0;
             item.y() = 0;
             item.z() = 0;
-            throw serialization_error(e.info + "\n   while deserializing object of type vector"); 
+            abort(); 
         }
     }
 
@@ -1125,7 +1125,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type vector"); 
+            abort(); 
         }
     }
 
@@ -1144,7 +1144,7 @@ namespace dlib
         { 
             item.x() = 0;
             item.y() = 0;
-            throw serialization_error(e.info + "\n   while deserializing object of type vector"); 
+            abort(); 
         }
     }
 

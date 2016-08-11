@@ -146,7 +146,7 @@ namespace dlib
             }
             else
             {
-                throw dlib::error("invalid input labels to the test_binary_decision_function() function");
+                abort();
             }
         }
 
@@ -732,7 +732,7 @@ namespace dlib
             }
             else
             {
-                throw dlib::error("invalid input labels to the learn_platt_scaling() function.");
+                abort();
             }
         }
 

@@ -123,7 +123,7 @@ namespace dlib
                     }
                 }
             }
-            throw error("\n"+wrap_string(sout.str()) + "\n" + sout2.str());
+            abort();
         }
     }
 
@@ -139,17 +139,17 @@ namespace dlib
     )
     {
         if (options.C <= 0)
-            throw error("Invalid C value given to train_simple_object_detector(), C must be > 0.");
+            abort();
         if (options.epsilon <= 0)
-            throw error("Invalid epsilon value given to train_simple_object_detector(), epsilon must be > 0.");
+            abort();
 
         if (images.size() != boxes.size())
-            throw error("The list of images must have the same length as the list of boxes.");
+            abort();
         if (images.size() != ignore.size())
-            throw error("The list of images must have the same length as the list of ignore boxes.");
+            abort();
 
         if (impl::contains_any_boxes(boxes) == false)
-            throw error("Error, the training dataset does not have any labeled object boxes in it.");
+            abort();
 
         typedef scan_fhog_pyramid<pyramid_down<6> > image_scanner_type; 
         image_scanner_type scanner;
@@ -281,7 +281,7 @@ namespace dlib
         simple_object_detector detector;
         std::ifstream fin(detector_filename.c_str(), std::ios::binary);
         if (!fin)
-            throw error("Unable to open file " + detector_filename);
+            abort();
         deserialize(detector, fin);
 
 
@@ -301,7 +301,7 @@ namespace dlib
             int version = 0;
             deserialize(version, fin);
             if (version != 1)
-                throw error("Unknown simple_object_detector format.");
+                abort();
             deserialize(final_upsampling_amount, fin);
         }
         if (upsample_amount >= 0)

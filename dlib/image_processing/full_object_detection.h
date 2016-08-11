@@ -85,7 +85,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version encountered while deserializing dlib::full_object_detection.");
+                abort();
 
             deserialize(item.rect, in);
             deserialize(item.parts, in);

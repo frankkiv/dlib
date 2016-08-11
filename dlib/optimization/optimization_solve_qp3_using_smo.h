@@ -193,7 +193,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << "Invalid QP3 constraint parameters of B: " << B << ", Cp: " << Cp << ", Cn: "<< Cn;
-                throw invalid_qp3_error(sout.str(),B,Cp,Cn);
+                abort();
             }
         }
 

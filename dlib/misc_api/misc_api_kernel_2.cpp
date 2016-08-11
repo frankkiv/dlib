@@ -63,7 +63,7 @@ namespace dlib
     {
         if (chdir(new_dir.c_str()))
         {
-            throw set_current_dir_error("Error changing current dir to '" + new_dir + "'");
+            abort();
         }
     }
 
@@ -99,17 +99,17 @@ namespace dlib
                 if (::stat(dir.c_str(),&buffer))
                 {
                     // the directory was not found
-                    throw dir_create_error(dir);
+                    abort();
                 }
                 else if (S_ISDIR(buffer.st_mode) == 0)
                 {
                     // It is not a directory
-                    throw dir_create_error(dir);
+                    abort();
                 }
             }
             else
             {
-                throw dir_create_error(dir);
+                abort();
             }
         }
     }

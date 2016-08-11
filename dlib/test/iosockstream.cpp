@@ -126,7 +126,7 @@ namespace
         dlib::sleep(500);
 
         if (theserv.error_string.size() != 0)
-            throw error(theserv.error_string);
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------

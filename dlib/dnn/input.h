@@ -122,7 +122,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "input_rgb_image")
-                throw serialization_error("Unexpected version found while deserializing dlib::input_rgb_image.");
+                abort();
             deserialize(item.avg_red, in);
             deserialize(item.avg_green, in);
             deserialize(item.avg_blue, in);
@@ -242,7 +242,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "input_rgb_image_sized")
-                throw serialization_error("Unexpected version found while deserializing dlib::input_rgb_image_sized.");
+                abort();
             deserialize(item.avg_red, in);
             deserialize(item.avg_green, in);
             deserialize(item.avg_blue, in);
@@ -254,7 +254,7 @@ namespace dlib
                 std::ostringstream sout;
                 sout << "Wrong image dimensions found while deserializing dlib::input_rgb_image_sized.\n";
                 sout << "Expected "<<NR<<" rows and "<<NC<< " columns, but found "<<nr<<" rows and "<<nc<<" columns.";
-                throw serialization_error(sout.str());
+                abort();
             }
         }
 
@@ -365,7 +365,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "input<matrix>")
-                throw serialization_error("Unexpected version found while deserializing dlib::input.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const input& item)
@@ -458,7 +458,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "input<array2d>")
-                throw serialization_error("Unexpected version found while deserializing dlib::input.");
+                abort();
         }
         friend std::ostream& operator<<(std::ostream& out, const input& item)
         {

@@ -136,7 +136,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw dlib::serialization_error("Unexpected version found while deserializing dlib::binned_vector_feature_image");
+            abort();
         deserialize(item.feats, in);
         deserialize(item.fe, in);
         deserialize(item.phash, in);

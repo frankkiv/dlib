@@ -299,7 +299,7 @@ int main(int argc, char** argv)
             ofstream fout(cat_opt.argument().c_str());
             if (!fout) 
             {
-                throw error("Error: unable to open file " + cat_opt.argument());
+                abort();
             }
             fout << "<html><title>" << cat_opt.argument() << "</title></html>";
 
@@ -310,7 +310,7 @@ int main(int argc, char** argv)
                 ifstream fin(file_map.element().value().c_str());
                 if (!fin) 
                 {
-                    throw error("Error: unable to open file " + file_map.element().value());
+                    abort();
                 }
 
                 string::size_type pos = file_map.element().value().find_last_of(separator);
@@ -452,14 +452,14 @@ void htmlify (
         ifstream fin(file_map.element().value().c_str());
         if (!fin) 
         {
-            throw error("Error: unable to open file " + file_map.element().value() );
+            abort();
         }
 
         ofstream fout(file_map.element().key().c_str());
 
         if (!fout) 
         {
-            throw error("Error: unable to open file " + file_map.element().key());
+            abort();
         }
 
         string::size_type pos = file_map.element().value().find_last_of(separator);
@@ -536,7 +536,7 @@ void add_files (
                     ostringstream sout;
                     sout << "Error: Two of the input files have the same name and would overwrite each\n";
                     sout << "other.  They are " << in_file << " and " << file_map[out_file] << ".";
-                    throw error(sout.str());
+                    abort();
                 }
                 else
                 {

@@ -197,7 +197,7 @@ namespace dlib
         catch (serialization_error e)
         { 
             item.clear();
-            throw serialization_error(e.info + "\n   while deserializing object of type hash_table_kernel_2"); 
+            abort(); 
         }
     }
 

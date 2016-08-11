@@ -350,7 +350,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type mlp_kernel_1"); 
+            abort(); 
         }
     }
 
@@ -382,7 +382,7 @@ namespace dlib
         { 
             // give item a reasonable value since the deserialization failed
             mlp_kernel_1(1,1).swap(item);
-            throw serialization_error(e.info + "\n   while deserializing object of type mlp_kernel_1"); 
+            abort(); 
         }
     }
 

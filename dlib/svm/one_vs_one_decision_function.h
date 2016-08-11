@@ -198,14 +198,14 @@ namespace dlib
                 else if (i->second.template contains<DF8>()) temp.template get<DF8>() = any_cast<DF8>(i->second);
                 else if (i->second.template contains<DF9>()) temp.template get<DF9>() = any_cast<DF9>(i->second);
                 else if (i->second.template contains<DF10>()) temp.template get<DF10>() = any_cast<DF10>(i->second);
-                else throw serialization_error("Can't serialize one_vs_one_decision_function.  Not all decision functions defined.");
+                else abort();
 
                 serialize(temp,out);
             }
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing an object of type one_vs_one_decision_function");
+            abort();
         }
 
     }
@@ -255,7 +255,7 @@ namespace dlib
             deserialize(version, in);
 
             if (version != 1)
-                throw serialization_error("Can't deserialize one_vs_one_decision_function.  Wrong version.");
+                abort();
 
             unsigned long size;
             deserialize(size, in);
@@ -269,7 +269,7 @@ namespace dlib
                 deserialize(p, in);
                 deserialize(temp, in);
                 if (temp.template contains<null_df>())
-                    throw serialization_error("A sub decision function of unknown type was encountered.");
+                    abort();
 
                 temp.apply_to_contents(copy_to(dfs[p]));
             }
@@ -278,7 +278,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing an object of type one_vs_one_decision_function");
+            abort();
         }
     }
 

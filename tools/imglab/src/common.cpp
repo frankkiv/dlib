@@ -33,7 +33,7 @@ void make_empty_file (
 {
     std::ofstream fout(filename.c_str());
     if (!fout)
-        throw dlib::error("ERROR: Unable to open " + filename + " for writing.");
+        abort();
 }
 
 // ----------------------------------------------------------------------------------------

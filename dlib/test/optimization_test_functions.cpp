@@ -154,7 +154,7 @@ namespace dlib
                 default:
                     std::ostringstream sout;
                     sout << "don't know chebyquad solution for n = " << n;
-                    throw dlib::error(sout.str());
+                    abort();
                     break;
             }
 

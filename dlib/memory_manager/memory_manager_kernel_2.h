@@ -140,7 +140,7 @@ namespace dlib
                 catch (...)
                 {
                     next->next = n;
-                    throw;
+                    abort();
                 }
 
                 next = n;
@@ -163,7 +163,7 @@ namespace dlib
                 {
                     // construction of the new object threw so delete the block of memory
                     ::operator delete ( static_cast<void*>(block));
-                    throw;
+                    abort();
                 }
 
                 // allocate a new chunk_node
@@ -173,7 +173,7 @@ namespace dlib
                 { 
                     temp->~T();
                     ::operator delete ( static_cast<void*>(block));
-                    throw;
+                    abort();
                 }
 
                 // add this block into the chunk list

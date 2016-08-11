@@ -37,7 +37,7 @@ namespace dlib
         if (GetFullPathNameA(name.c_str(),sizeof(buf),buf,&str) == 0)
         {
             // the file was not found
-            throw file_not_found("Unable to find file " + name);
+            abort();
         }
         state.full_name = buf;
         
@@ -46,7 +46,7 @@ namespace dlib
         if (pos == string::npos)
         {
             // no valid full path has no separator characters.  
-            throw file_not_found("Unable to find file " + name);
+            abort();
         }
         state.name = state.full_name.substr(pos+1);
 
@@ -57,7 +57,7 @@ namespace dlib
         if (ffind == INVALID_HANDLE_VALUE ||
             (data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY) != 0)
         {
-            throw file_not_found("Unable to find file " + name);                
+            abort();                
         }
         else
         {
@@ -106,7 +106,7 @@ namespace dlib
         if (GetFullPathNameA(name.c_str(),sizeof(buf),buf,&str) == 0)
         {
             // the directory was not found
-            throw dir_not_found("Unable to find directory " + name);
+            abort();
         }
         state.full_name = buf;
   
@@ -136,7 +136,7 @@ namespace dlib
             (attribs&FILE_ATTRIBUTE_DIRECTORY) == 0)
         {
             // the directory was not found
-            throw dir_not_found("Unable to find directory " + name);
+            abort();
         }
 
     }

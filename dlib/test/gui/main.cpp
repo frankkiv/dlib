@@ -544,7 +544,7 @@ public:
         nrect.set_name("test widgets");
         nrect.set_pos(2,mbar.bottom()+2);
 
-        //throw dlib::error("holy crap batman");
+        //abort();
         tab_label.set_pos(10,440);
 
         tabs.set_click_handler(*this,&win::tab_change); 

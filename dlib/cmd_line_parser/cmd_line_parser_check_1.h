@@ -258,7 +258,7 @@ namespace dlib
         }
         catch (string_cast_error& e)
         {
-            throw cmd_line_check_error(EINVALID_OPTION_ARG,option_name,e.info);
+            abort();
         }
     }
 
@@ -296,7 +296,7 @@ namespace dlib
         }
         catch (string_cast_error& e)
         {
-            throw cmd_line_check_error(EINVALID_OPTION_ARG,option_name,e.info);
+            abort();
         }
     }
 
@@ -339,7 +339,7 @@ namespace dlib
         }
         catch (string_cast_error& e)
         {
-            throw cmd_line_check_error(EINVALID_OPTION_ARG,option_name,e.info);
+            abort();
         }
     }
 
@@ -444,7 +444,7 @@ namespace dlib
                 std::vector<string_type> vect;
                 vect.resize(1);
                 vect[0] = parent_option;
-                throw cmd_line_check_error( EMISSING_REQUIRED_OPTION, sub_option, vect);
+                abort();
             }
         }
     }
@@ -472,7 +472,7 @@ namespace dlib
                 std::vector<string_type> vect;
                 vect.resize(1);
                 vect[0] = parent_option;
-                throw cmd_line_check_error( EMISSING_REQUIRED_OPTION, sub_option_set[i], vect);
+                abort();
             }
         }
     }
@@ -504,7 +504,7 @@ namespace dlib
             if (!parents_present)
             {
                 std::vector<string_type> vect(parent_option_set, parent_option_set+length);
-                throw cmd_line_check_error( EMISSING_REQUIRED_OPTION, sub_option, vect);
+                abort();
             }
         }
     }
@@ -542,7 +542,7 @@ namespace dlib
             if (i != sub_length)
             {
                 std::vector<string_type> vect(parent_option_set, parent_option_set+parent_length);
-                throw cmd_line_check_error( EMISSING_REQUIRED_OPTION, sub_option_set[i], vect);
+                abort();
             }
         }
     }

@@ -120,7 +120,7 @@ namespace dlib
             catch (...)
             {
                 con.reset();
-                throw;
+                abort();
             }
             con.reset();
         }

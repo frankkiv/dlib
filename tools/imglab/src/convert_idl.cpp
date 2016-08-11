@@ -53,7 +53,7 @@ namespace
     {
         ifstream fin(file.c_str());
         if (!fin)
-            throw dlib::error("Unable to open file " + file);
+            abort();
 
 
         bool in_quote = false;
@@ -76,7 +76,7 @@ namespace
                     case 2: p2.x() = val; break;
                     case 3: p2.y() = val; break;
                     default:
-                            throw dlib::error("parse error in file " + file);
+                            abort();
                 }
 
                 ++point_count;

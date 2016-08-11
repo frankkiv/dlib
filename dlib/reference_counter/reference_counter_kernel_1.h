@@ -94,7 +94,7 @@ namespace dlib
     {
         data = new T;
         try { count = new unsigned long; }
-        catch (...) { delete data; throw; }
+        catch (...) { delete data; abort(); }
 
         *count = 1;
     }
@@ -153,7 +153,7 @@ namespace dlib
         {
             data = new T;
             try { count = new unsigned long; }
-            catch (...) { delete data; throw; }
+            catch (...) { delete data; abort(); }
 
             *count = 1;            
         }
@@ -163,10 +163,10 @@ namespace dlib
             --(*count);
 
             try { data = new T; }               
-            catch (...) { count = 0; throw; }
+            catch (...) { count = 0; abort(); }
 
             try { count = new unsigned long; }  
-            catch (...) { delete data; count = 0; throw; }
+            catch (...) { delete data; count = 0; abort(); }
 
             *count = 1;
 
@@ -176,7 +176,7 @@ namespace dlib
             // if there are no other references to this data
             *count = 1;
             delete data;
-            try { data = new T; } catch (...) { delete count; count = 0; throw; }
+            try { data = new T; } catch (...) { delete count; count = 0; abort(); }
         }
     }
     
@@ -199,10 +199,10 @@ namespace dlib
 
             // get memory for the new copy
             try { data = new T; }               
-            catch (...) { data = &old_data; throw; }
+            catch (...) { data = &old_data; abort(); }
 
             try { count = new unsigned long; }  
-            catch (...) {delete data; data = &old_data; count = &old_count; throw;}
+            catch (...) {delete data; data = &old_data; count = &old_count; abort();}
 
             // decrement the number of references to old_data
             --(old_count);

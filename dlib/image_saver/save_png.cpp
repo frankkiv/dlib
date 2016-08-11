@@ -41,7 +41,7 @@ namespace dlib
             /* Open the file */
             fp = fopen(file_name.c_str(), "wb");
             if (fp == NULL)
-                throw image_save_error("Unable to open " + file_name + " for writing.");
+                abort();
 
             /* Create and initialize the png_struct with the desired error handler
             * functions.  If you want to use the default stderr and longjump method,
@@ -54,7 +54,7 @@ namespace dlib
             if (png_ptr == NULL)
             {
                 fclose(fp);
-                throw image_save_error("Error while writing PNG file " + file_name);
+                abort();
             }
 
             /* Allocate/initialize the image information data.  REQUIRED */
@@ -63,7 +63,7 @@ namespace dlib
             {
                 fclose(fp);
                 png_destroy_write_struct(&png_ptr,  NULL);
-                throw image_save_error("Error while writing PNG file " + file_name);
+                abort();
             }
 
             /* Set error handling.  REQUIRED if you aren't supplying your own
@@ -74,7 +74,7 @@ namespace dlib
                 /* If we get here, we had a problem writing the file */
                 fclose(fp);
                 png_destroy_write_struct(&png_ptr, &info_ptr);
-                throw image_save_error("Error while writing PNG file " + file_name);
+                abort();
             }
 
             int color_type = 0;
@@ -87,7 +87,7 @@ namespace dlib
                     {
                         fclose(fp);
                         png_destroy_write_struct(&png_ptr, &info_ptr);
-                        throw image_save_error("Invalid color type");
+                        abort();
                     }
             }
 

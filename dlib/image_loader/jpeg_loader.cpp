@@ -83,12 +83,12 @@ namespace dlib
     {
         if ( filename == NULL )
         {
-            throw image_load_error("jpeg_loader: invalid filename, it is NULL");
+            abort();
         }
         FILE *fp = fopen( filename, "rb" );
         if ( !fp )
         {
-            throw image_load_error(std::string("jpeg_loader: unable to open file ") + filename);
+            abort();
         }
 
         jpeg_decompress_struct cinfo;
@@ -106,7 +106,7 @@ namespace dlib
              */
             jpeg_destroy_decompress(&cinfo);
             fclose(fp);
-            throw image_load_error(std::string("jpeg_loader: error while reading ") + filename);
+            abort();
         }
 
 
@@ -129,7 +129,7 @@ namespace dlib
             jpeg_destroy_decompress(&cinfo);
             std::ostringstream sout;
             sout << "jpeg_loader: Unsupported number of colors (" << output_components_ << ") in file " << filename;
-            throw image_load_error(sout.str());
+            abort();
         }
 
         std::vector<unsigned char*> rows;

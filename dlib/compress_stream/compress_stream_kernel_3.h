@@ -89,7 +89,7 @@ namespace dlib
         ) const
         { 
             if (out->sputn(reinterpret_cast<char*>(&symbol),1)==0)
-                throw std::ios_base::failure("error writing to output stream in compress_stream_kernel_3");        
+                abort();        
         }
 
         inline void decode (
@@ -100,7 +100,7 @@ namespace dlib
             if (count == 0)
             {
                 if (((size_t)in->sgetn(reinterpret_cast<char*>(buffer),sizeof(buffer)))!=sizeof(buffer))
-                    throw decompression_error("Error detected in compressed data stream.");
+                    abort();
                 count = 8;
             }
             --count;
@@ -129,7 +129,7 @@ namespace dlib
             if (count == 8)
             {
                 if (((size_t)out->sputn(reinterpret_cast<char*>(buffer),sizeof(buffer)))!=sizeof(buffer))
-                    throw std::ios_base::failure("error writing to output stream in compress_stream_kernel_3");        
+                    abort();        
                 count = 0;
                 buffer[0] = 0;
             }
@@ -156,7 +156,7 @@ namespace dlib
             {
                 buffer[0] <<= (8-count);
                 if (((size_t)out->sputn(reinterpret_cast<char*>(buffer),sizeof(buffer)))!=sizeof(buffer))
-                    throw std::ios_base::failure("error writing to output stream in compress_stream_kernel_3");        
+                    abort();        
             }
         }
 
@@ -349,16 +349,16 @@ namespace dlib
 
         decode(byte1,flag);
         if (flag != 0)
-            throw decompression_error("Error detected in compressed data stream.");
+            abort();
         decode(byte2,flag);
         if (flag != 0)
-            throw decompression_error("Error detected in compressed data stream.");
+            abort();
         decode(byte3,flag);
         if (flag != 0)
-            throw decompression_error("Error detected in compressed data stream.");
+            abort();
         decode(byte4,flag);
         if (flag != 0)
-            throw decompression_error("Error detected in compressed data stream.");
+            abort();
 
         unsigned long checksum = byte1;
         checksum <<= 8;
@@ -369,7 +369,7 @@ namespace dlib
         checksum |= byte4;
 
         if (checksum != crc.get_checksum())
-            throw decompression_error("Error detected in compressed data stream.");
+            abort();
  
     }
 

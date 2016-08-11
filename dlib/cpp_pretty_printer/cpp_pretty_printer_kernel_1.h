@@ -125,7 +125,7 @@ namespace dlib
         using namespace std;
 
         if (!out)
-            throw std::ios::failure("error occurred in cpp_pretty_printer_kernel_1::print");
+            abort();
 
         t.set_stream(in);
 
@@ -133,7 +133,7 @@ namespace dlib
             << "Created using the cpp_pretty_printer from the dlib C++ library.  See http://dlib.net for updates." 
             << " --><head><title>" << title << "</title></head><body bgcolor='white'><pre>\n";
         if (!out)
-            throw std::ios::failure("error occurred in cpp_pretty_printer_kernel_1::print");
+            abort();
 
         unsigned long scope = 0; // counts the number of new scopes we have entered 
                         // since we were at a scope where functions can be declared
@@ -481,7 +481,7 @@ namespace dlib
 
         out << "\n</pre></body></html>";
         if (!out)
-            throw std::ios::failure("error occurred in cpp_pretty_printer_kernel_1::print");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -521,7 +521,7 @@ namespace dlib
     ) const
     {
         if (!out)
-            throw std::ios::failure("error occurred in cpp_pretty_printer_kernel_1::number");
+            abort();
 
         std::string space = "&nbsp;&nbsp;&nbsp;";
         std::ios::int_type ch;
@@ -545,7 +545,7 @@ namespace dlib
             }
         }
         if (!out)
-            throw std::ios::failure("error occurred in cpp_pretty_printer_kernel_1::number");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------

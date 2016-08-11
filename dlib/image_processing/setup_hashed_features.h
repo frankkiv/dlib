@@ -91,7 +91,7 @@ namespace dlib
             randomly_sample_image_features(images, pyr, fe, num_samples);
 
         if (samps.size() <= 1)
-            throw dlib::image_hash_construction_failure("Images too small, not able to gather enough samples to make hash");
+            abort();
 
         projection_hash phash = create_random_projection_hash(samps, bits);
 
@@ -169,7 +169,7 @@ namespace dlib
             randomly_sample_image_features(images, pyr, fe, num_samples);
 
         if (samps.size() <= 1)
-            throw dlib::image_hash_construction_failure("Images too small, not able to gather enough samples to make hash");
+            abort();
 
         projection_hash phash = create_random_projection_hash(samps, bits);
 

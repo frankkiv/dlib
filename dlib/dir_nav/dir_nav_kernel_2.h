@@ -328,7 +328,7 @@ namespace dlib
 
         files.clear();
         if (state.full_name.size() == 0)
-            throw directory::listing_error("This directory object currently doesn't represent any directory.");
+            abort();
 
         DIR* ffind = 0;
         struct dirent* data;
@@ -345,7 +345,7 @@ namespace dlib
             ffind = opendir(state.full_name.c_str());
             if (ffind == 0)
             {
-                throw directory::listing_error("Unable to list the contents of " + state.full_name);
+                abort();
             }
 
             while(true)
@@ -362,7 +362,7 @@ namespace dlib
                     else
                     {
                         // there was an error
-                        throw directory::listing_error("Unable to list the contents of " + state.full_name);
+                        abort();
                     }                
                 }
 
@@ -375,7 +375,7 @@ namespace dlib
                     char buf[PATH_MAX];
                     ssize_t temp = readlink((path+data->d_name).c_str(),buf,sizeof(buf));
                     if (temp == -1)                    
-                        throw directory::listing_error("Unable to list the contents of " + state.full_name);
+                        abort();
                     else
                         file_size = static_cast<uint64>(temp);
                 }
@@ -420,7 +420,7 @@ namespace dlib
                 ffind = 0;
             }
             files.clear();
-            throw;
+            abort();
         }
     }
 
@@ -480,7 +480,7 @@ namespace dlib
 
         dirs.clear();
         if (state.full_name.size() == 0)
-            throw directory::listing_error("This directory object currently doesn't represent any directory.");
+            abort();
 
         DIR* ffind = 0;
         struct dirent* data;
@@ -497,7 +497,7 @@ namespace dlib
             ffind = opendir(state.full_name.c_str());
             if (ffind == 0)
             {
-                throw directory::listing_error("Unable to list the contents of " + state.full_name);
+                abort();
             }
 
             while(true)
@@ -514,7 +514,7 @@ namespace dlib
                     else
                     {
                         // there was an error
-                        throw directory::listing_error("Unable to list the contents of " + state.full_name);
+                        abort();
                     }                
                 }
 
@@ -560,7 +560,7 @@ namespace dlib
                 ffind = 0;
             }
             dirs.clear();
-            throw;
+            abort();
         }
     }
 

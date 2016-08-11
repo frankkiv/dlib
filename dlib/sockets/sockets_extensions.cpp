@@ -28,7 +28,7 @@ namespace dlib
         std::istringstream sin(full_address);
         sin >> *this;
         if (!sin || sin.peek() != EOF)
-            throw invalid_network_address("invalid network address: " + full_address);
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -112,14 +112,14 @@ namespace dlib
         else
         {
             if( hostname_to_ip(host_or_ip,ip))
-                throw socket_error(ERESOLVE,"unable to resolve '" + host_or_ip + "' in connect()");
+                abort();
         }
 
         if(create_connection(con,port,ip))
         {
             std::ostringstream sout;
             sout << "unable to connect to '" << host_or_ip << ":" << port << "'";
-            throw socket_error(sout.str()); 
+            abort(); 
         }
 
         return con;
@@ -205,7 +205,7 @@ namespace dlib
             }
             else
             {
-                throw socket_error("unable to connect to '" + host_or_ip + "' because connect timed out"); 
+                abort(); 
             }
             
             connect_signaler.wait_or_timeout(timeout);
@@ -223,7 +223,7 @@ namespace dlib
         if (create_new_thread(thread, data) == false)
         {
             delete data;
-            throw socket_error("unable to connect to '" + host_or_ip); 
+            abort(); 
         }
 
         ++outstanding_connects;
@@ -242,9 +242,9 @@ namespace dlib
                 data->connect_ended = true;
                 connect_signaler.broadcast();
                 if (data->error_occurred)
-                    throw socket_error("unable to connect to '" + host_or_ip); 
+                    abort(); 
                 else
-                    throw socket_error("unable to connect to '" + host_or_ip + "' because connect timed out"); 
+                    abort(); 
             }
 
             connect_signaler.wait_or_timeout(timeout);
@@ -326,7 +326,7 @@ namespace dlib
         catch (...)
         {
             con.reset();
-            throw;
+            abort();
         }
 
         con.reset();

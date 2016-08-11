@@ -465,7 +465,7 @@ namespace dlib
                 }
 
                 if (num_vectors == 0)
-                    throw discriminant_pca_error("While performing discriminant_pca, all eigenvalues were negative or 0");
+                    abort();
             }
             else
             {

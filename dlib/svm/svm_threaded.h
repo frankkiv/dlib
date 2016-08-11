@@ -72,7 +72,7 @@ namespace dlib
                 catch (std::bad_alloc&)
                 {
                     std::cerr << "\nstd::bad_alloc thrown while running cross_validate_trainer_threaded().  Not enough memory.\n" << std::endl;
-                    throw;
+                    abort();
                 }
             }
         };

@@ -310,7 +310,7 @@ namespace dlib
             {
                 if (coder.get_target(400) != 150)
                 {
-                    throw decompression_error("Error detected in compressed data stream.");
+                    abort();
                 }
                 count = 0;
                 coder.decode(150,151);
@@ -367,7 +367,7 @@ namespace dlib
                     // write this ch to out
                     if (out.sputc(static_cast<char>(ch)) != static_cast<int>(ch))
                     {
-                        throw std::ios::failure("error occurred in compress_stream_kernel_2::decompress");
+                        abort();
                     }
                 }
                 
@@ -387,7 +387,7 @@ namespace dlib
                     // write this symbol to out
                     if (out.sputc(static_cast<char>(symbol)) != static_cast<int>(symbol))
                     {
-                        throw std::ios::failure("error occurred in compress_stream_kernel_2::decompress");
+                        abort();
                     }
                 }
                 else
@@ -414,7 +414,7 @@ namespace dlib
                     checksum |= byte4;
 
                     if (checksum != crc.get_checksum())
-                        throw decompression_error("Error detected in compressed data stream.");
+                        abort();
 
                     break;
                 }

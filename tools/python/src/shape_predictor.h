@@ -66,7 +66,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing an object of type shape_predictor_training_options");
+            abort();
         }
     }
 
@@ -91,7 +91,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing an object of type shape_predictor_training_options");
+            abort();
         }
     }
 
@@ -141,17 +141,17 @@ namespace dlib
     )
     {
         if (options.lambda_param <= 0)
-            throw error("Invalid lambda_param value given to train_shape_predictor(), lambda_param must be > 0.");
+            abort();
         if (!(0 < options.nu && options.nu <= 1))
-            throw error("Invalid nu value given to train_shape_predictor(). It is required that 0 < nu <= 1.");
+            abort();
         if (options.feature_pool_region_padding < 0)
-            throw error("Invalid feature_pool_region_padding value given to train_shape_predictor(), feature_pool_region_padding must be >= 0.");
+            abort();
 
         if (images.size() != detections.size())
-            throw error("The list of images must have the same length as the list of detections.");
+            abort();
 
         if (!impl::contains_any_detections(detections))
-            throw error("Error, the training dataset does not have any labeled object detections in it.");
+            abort();
 
         shape_predictor_trainer trainer;
 
@@ -215,9 +215,9 @@ namespace dlib
     )
     {
         if (images.size() != detections.size())
-            throw error("The list of images must have the same length as the list of detections.");
+            abort();
         if (scales.size() > 0  && scales.size() != images.size())
-            throw error("The list of scales must have the same length as the list of detections.");
+            abort();
 
         if (scales.size() > 0)
             return test_shape_predictor(predictor, images, detections, scales);

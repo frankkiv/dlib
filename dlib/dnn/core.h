@@ -814,13 +814,13 @@ namespace dlib
         const tensor& get_output() const 
         { 
             if (get_output_and_gradient_input_disabled)
-                throw dlib::error("Accessing this layer's get_output() is disabled because an in-place layer has been stacked on top of it.");
+                abort();
             return private_get_output(); 
         }
         tensor& get_gradient_input() 
         { 
             if (get_output_and_gradient_input_disabled)
-                throw dlib::error("Accessing this layer's get_gradient_input() is disabled because an in-place layer has been stacked on top of it.");
+                abort();
             return private_get_gradient_input();
         }
 
@@ -899,7 +899,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (!(1 <= version && version <= 2))
-                throw serialization_error("Unexpected version found while deserializing dlib::add_layer.");
+                abort();
             deserialize(*item.subnetwork, in);
             deserialize(item.details, in);
             deserialize(item.this_layer_setup_called, in);
@@ -1163,13 +1163,13 @@ namespace dlib
         const tensor& get_output() const 
         { 
             if (get_output_and_gradient_input_disabled)
-                throw dlib::error("Accessing this layer's get_output() is disabled because an in-place layer has been stacked on top of it.");
+                abort();
             return private_get_output(); 
         }
         tensor& get_gradient_input() 
         { 
             if (get_output_and_gradient_input_disabled)
-                throw dlib::error("Accessing this layer's get_gradient_input() is disabled because an in-place layer has been stacked on top of it.");
+                abort();
             return private_get_gradient_input();
         }
 
@@ -1250,7 +1250,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 2)
-                throw serialization_error("Unexpected version found while deserializing dlib::add_layer.");
+                abort();
             deserialize(item.input_layer, in);
             deserialize(item.details, in);
             deserialize(item.this_layer_setup_called, in);
@@ -1465,7 +1465,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::add_tag_layer.");
+                abort();
             deserialize(item.subnetwork, in);
         }
 
@@ -1752,7 +1752,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::repeat.");
+                abort();
             deserialize(item.details, in);
             deserialize(item.subnetwork, in);
         }
@@ -1969,7 +1969,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::add_tag_layer.");
+                abort();
             deserialize(item.input_layer, in);
             deserialize(item.cached_output, in);
             deserialize(item.grad_final, in);
@@ -2319,7 +2319,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::add_loss_layer.");
+                abort();
             deserialize(item.loss, in);
             deserialize(item.subnetwork, in);
         }
@@ -2672,7 +2672,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::add_skip_layer.");
+                abort();
             deserialize(item.subnetwork, in);
         }
 

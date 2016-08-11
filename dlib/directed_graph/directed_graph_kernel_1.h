@@ -431,7 +431,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type directed_graph_kernel_1"); 
+            abort(); 
         }
     }
 
@@ -486,7 +486,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type directed_graph_kernel_1"); 
+            abort(); 
         }
     }
 
@@ -519,7 +519,7 @@ namespace dlib
         catch (...)
         {
             clear();
-            throw;
+            abort();
         }
     }
 
@@ -580,7 +580,7 @@ namespace dlib
         catch (...)
         {
             clear();
-            throw;
+            abort();
         }
     }
 
@@ -640,7 +640,7 @@ namespace dlib
         catch (...)
         {
             clear();
-            throw;
+            abort();
         }
     }
 

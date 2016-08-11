@@ -116,7 +116,7 @@ namespace dlib
             if (create_new_thread<threaded_object,&threaded_object::thread_helper>(*this) == false)
             {
                 is_running_ = false;
-                throw thread_error();
+                abort();
             }
         }
         is_alive_ = true;
@@ -144,7 +144,7 @@ namespace dlib
             if (create_new_thread<threaded_object,&threaded_object::thread_helper>(*this) == false)
             {
                 is_running_ = false;
-                throw thread_error();
+                abort();
             }
             should_respawn_ = false;
         }

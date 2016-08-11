@@ -118,7 +118,7 @@ namespace dlib
             catch (...)
             {
                 delete p;
-                throw;
+                abort();
             }
         }
 
@@ -144,7 +144,7 @@ namespace dlib
             {
                 if (shared_node) delete shared_node;
                 d(p);
-                throw;
+                abort();
             }
         }
 

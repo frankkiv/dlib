@@ -18,7 +18,7 @@ void pyimage_to_dlib_image(object img, dest_image_type& image)
     else if (is_rgb_python_image(img))
         assign_image(image, numpy_rgb_image(img));
     else
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
 }
 
 template <typename image_array, typename param_type>

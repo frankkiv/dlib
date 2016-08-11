@@ -237,7 +237,7 @@ namespace dlib
         std::ostringstream sout;
         sout << item;
         if (!sout)
-            throw cast_to_string_error();
+            abort();
         return sout.str();
     }
 
@@ -254,7 +254,7 @@ namespace dlib
         std::basic_ostringstream<wchar_t> sout;
         sout << item;
         if (!sout)
-            throw cast_to_string_error();
+            abort();
         return sout.str();
     }
 #endif
@@ -294,8 +294,8 @@ namespace dlib
             basic_istringstream<charT,traits,alloc> sin(str);
             T temp;
             sin >> temp;
-            if (!sin) throw string_cast_error(narrow(str));
-            if (sin.get() != std::char_traits<charT>::eof()) throw string_cast_error(narrow(str));   
+            if (!sin) abort();
+            if (sin.get() != std::char_traits<charT>::eof()) abort();   
             return temp;
         }
     };
@@ -334,7 +334,7 @@ namespace dlib
             if (tolower(narrow(str)) == "false")
                 return false;
 
-            throw string_cast_error(narrow(str));
+            abort();
         }
     };
 
@@ -354,8 +354,8 @@ namespace dlib
                 sin >> hex >> temp;                                 \
             else                                                    \
                 sin >> temp;                                        \
-            if (!sin) throw string_cast_error(narrow(str));                 \
-            if (sin.get() != std::char_traits<charT>::eof()) throw string_cast_error(narrow(str));     \
+            if (!sin) abort();                 \
+            if (sin.get() != std::char_traits<charT>::eof()) abort();     \
             return temp;                                            \
         }                                                           \
     };

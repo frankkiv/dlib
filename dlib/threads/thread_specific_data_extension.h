@@ -100,7 +100,7 @@ namespace dlib
                         items.destroy(id);
                     }
                     delete new_item;
-                    throw;
+                    abort();
                 }
 
                 return *new_item;

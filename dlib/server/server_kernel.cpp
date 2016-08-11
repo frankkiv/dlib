@@ -339,7 +339,7 @@ namespace dlib
                 
 
                 clear(); 
-                throw;
+                abort();
             }
             cons_mutex.unlock();
 
@@ -361,7 +361,7 @@ namespace dlib
                 running_signaler.broadcast();
                 running_mutex.unlock();
                 clear(); 
-                throw;
+                abort();
             }
 
 

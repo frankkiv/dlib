@@ -89,7 +89,7 @@ T& cast_to(
     derived<U,function_type>* d = dynamic_cast<derived<U,function_type>*>(data.get());
     if (d == 0)
     {
-        throw bad_any_cast();
+        abort();
     }
 
     return d->item;
@@ -103,7 +103,7 @@ const T& cast_to(
     derived<U,function_type>* d = dynamic_cast<derived<U,function_type>*>(data.get());
     if (d == 0)
     {
-        throw bad_any_cast();
+        abort();
     }
 
     return d->item;

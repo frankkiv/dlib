@@ -222,10 +222,10 @@ namespace dlib
         nodes = new node[history_limit-3];
 
         try { id_table = new node*[buffer.size()]; }
-        catch (...) { delete [] nodes; throw; }
+        catch (...) { delete [] nodes; abort(); }
 
         try { hash_table = new node*[buffer.size()]; }
-        catch (...) { delete [] id_table; delete [] nodes; throw; }
+        catch (...) { delete [] id_table; delete [] nodes; abort(); }
 
         mask = buffer.size()-1;
         next_free_node = 0;

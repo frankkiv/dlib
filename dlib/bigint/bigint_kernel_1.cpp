@@ -195,7 +195,7 @@ namespace dlib
         data_record* remainder;
         try {
             remainder = new data_record(data->digits_used+slack);           
-        } catch (...) { delete temp; throw; }
+        } catch (...) { delete temp; abort(); }
 
         long_div(data,rhs.data,temp,remainder);
         delete remainder;
@@ -216,7 +216,7 @@ namespace dlib
         data_record* remainder;
         try {
             remainder = new data_record(data->digits_used+slack);
-        } catch (...) { delete temp; throw; }    
+        } catch (...) { delete temp; abort(); }    
 
         long_div(data,rhs.data,temp,remainder);
 
@@ -248,7 +248,7 @@ namespace dlib
         data_record* remainder;
         try {
             remainder = new data_record(data->digits_used+slack);
-        } catch (...) { delete temp; throw; }
+        } catch (...) { delete temp; abort(); }
 
         long_div(data,rhs.data,temp,remainder);
         delete temp;
@@ -266,7 +266,7 @@ namespace dlib
         data_record* remainder;
         try {
             remainder = new data_record(data->digits_used+slack);
-        } catch (...) { delete temp; throw; }
+        } catch (...) { delete temp; abort(); }
 
         long_div(data,rhs.data,temp,remainder);
 
@@ -351,7 +351,7 @@ namespace dlib
         char* str;
         try {
             str = new char[(rhs.data->digits_used)*5+10];
-        } catch (...) { delete temp; throw; }
+        } catch (...) { delete temp; abort(); }
 
         char* str_start = str;
         str += (rhs.data->digits_used)*5+9;
@@ -864,7 +864,7 @@ namespace dlib
             data->references -= 1;
             try {
                 data = new data_record(slack);
-            } catch (...) { data->references += 1; throw; }
+            } catch (...) { data->references += 1; abort(); }
         }
         else
         {

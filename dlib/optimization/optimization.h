@@ -177,9 +177,9 @@ namespace dlib
         g = der(x);
 
         if (!is_finite(f_value))
-            throw error("The objective function generated non-finite outputs");
+            abort();
         if (!is_finite(g))
-            throw error("The objective function generated non-finite outputs");
+            abort();
 
         while(stop_strategy.should_continue_search(x, f_value, g) && f_value > min_f)
         {
@@ -197,9 +197,9 @@ namespace dlib
             x += alpha*s;
 
             if (!is_finite(f_value))
-                throw error("The objective function generated non-finite outputs");
+                abort();
             if (!is_finite(g))
-                throw error("The objective function generated non-finite outputs");
+                abort();
         }
 
         return f_value;
@@ -243,9 +243,9 @@ namespace dlib
         g = -der(x);
 
         if (!is_finite(f_value))
-            throw error("The objective function generated non-finite outputs");
+            abort();
         if (!is_finite(g))
-            throw error("The objective function generated non-finite outputs");
+            abort();
 
         while(stop_strategy.should_continue_search(x, f_value, g) && f_value > -max_f)
         {
@@ -269,9 +269,9 @@ namespace dlib
             f_value *= -1;
 
             if (!is_finite(f_value))
-                throw error("The objective function generated non-finite outputs");
+                abort();
             if (!is_finite(g))
-                throw error("The objective function generated non-finite outputs");
+                abort();
         }
 
         return -f_value;
@@ -312,9 +312,9 @@ namespace dlib
         g = derivative(f,derivative_eps)(x);
 
         if (!is_finite(f_value))
-            throw error("The objective function generated non-finite outputs");
+            abort();
         if (!is_finite(g))
-            throw error("The objective function generated non-finite outputs");
+            abort();
 
         while(stop_strategy.should_continue_search(x, f_value, g) && f_value > min_f)
         {
@@ -336,9 +336,9 @@ namespace dlib
             g = derivative(f,derivative_eps)(x);
 
             if (!is_finite(f_value))
-                throw error("The objective function generated non-finite outputs");
+                abort();
             if (!is_finite(g))
-                throw error("The objective function generated non-finite outputs");
+                abort();
         }
 
         return f_value;
@@ -494,9 +494,9 @@ namespace dlib
         g = der(x);
 
         if (!is_finite(f_value))
-            throw error("The objective function generated non-finite outputs");
+            abort();
         if (!is_finite(g))
-            throw error("The objective function generated non-finite outputs");
+            abort();
 
         // gap_eps determines how close we have to get to a bound constraint before we
         // start basically dropping it from the optimization and consider it to be an
@@ -531,9 +531,9 @@ namespace dlib
             g = der(x);
 
             if (!is_finite(f_value))
-                throw error("The objective function generated non-finite outputs");
+                abort();
             if (!is_finite(g))
-                throw error("The objective function generated non-finite outputs");
+                abort();
         }
 
         return f_value;
@@ -625,9 +625,9 @@ namespace dlib
         g = -der(x);
 
         if (!is_finite(f_value))
-            throw error("The objective function generated non-finite outputs");
+            abort();
         if (!is_finite(g))
-            throw error("The objective function generated non-finite outputs");
+            abort();
 
         // gap_eps determines how close we have to get to a bound constraint before we
         // start basically dropping it from the optimization and consider it to be an
@@ -666,9 +666,9 @@ namespace dlib
             f_value *= -1;
 
             if (!is_finite(f_value))
-                throw error("The objective function generated non-finite outputs");
+                abort();
             if (!is_finite(g))
-                throw error("The objective function generated non-finite outputs");
+                abort();
         }
 
         return -f_value;

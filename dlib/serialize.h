@@ -415,9 +415,9 @@ namespace dlib
 
     #define USE_DEFAULT_INT_SERIALIZATION_FOR(T)  \
         inline void serialize (const T& item, std::ostream& out) \
-        { if (ser_helper::pack_int(item,out)) throw serialization_error("Error serializing object of type " + std::string(#T)); }   \
+        { if (ser_helper::pack_int(item,out)) abort(); }   \
         inline void deserialize (T& item, std::istream& in) \
-        { if (ser_helper::unpack_int(item,in)) throw serialization_error("Error deserializing object of type " + std::string(#T)); }   
+        { if (ser_helper::unpack_int(item,in)) abort(); }   
 
     template <typename T>
     inline bool pack_byte (
@@ -450,9 +450,9 @@ namespace dlib
 
     #define USE_DEFAULT_BYTE_SERIALIZATION_FOR(T)  \
         inline void serialize (const T& item,std::ostream& out) \
-        { if (pack_byte(item,out)) throw serialization_error("Error serializing object of type " + std::string(#T)); } \
+        { if (pack_byte(item,out)) abort(); } \
         inline void deserialize (T& item, std::istream& in) \
-        { if (unpack_byte(item,in)) throw serialization_error("Error deserializing object of type " + std::string(#T)); }   
+        { if (unpack_byte(item,in)) abort(); }   
 
 // ----------------------------------------------------------------------------------------
 
@@ -511,7 +511,7 @@ namespace dlib
             serialize(temp, out);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing a floating point number."); }
+        { abort(); }
     }
 
     template <typename T>
@@ -577,12 +577,12 @@ namespace dlib
                 item = temp;
             }
             catch (serialization_error& e)
-            { throw serialization_error(e.info + "\n   while deserializing a floating point number."); }
+            { abort(); }
         }
         else
         {
             if (old_deserialize_floating_point(item, in))
-                throw serialization_error("Error deserializing a floating point number.");
+                abort();
         }
     }
 
@@ -748,7 +748,7 @@ namespace dlib
             out << '0';
 
         if (!out) 
-            throw serialization_error("Error serializing object of type bool");    
+            abort();    
     }
 
     inline void deserialize (
@@ -764,11 +764,11 @@ namespace dlib
             else if (ch == '0')
                 item = false;
             else
-                throw serialization_error("Error deserializing object of type bool");    
+                abort();    
         }
         else
         {
-            throw serialization_error("Error deserializing object of type bool");    
+            abort();    
         }
     }
 
@@ -786,7 +786,7 @@ namespace dlib
             serialize(item.second,out); 
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::pair"); }
+        { abort(); }
     }
 
     template <typename first_type, typename second_type>
@@ -801,7 +801,7 @@ namespace dlib
             deserialize(item.second,in); 
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::pair"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -826,7 +826,7 @@ namespace dlib
 
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::map"); }
+        { abort(); }
     }
 
     template <typename domain, typename range, typename compare, typename alloc>
@@ -851,7 +851,7 @@ namespace dlib
             }
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::map"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -875,7 +875,7 @@ namespace dlib
 
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::set"); }
+        { abort(); }
     }
 
     template <typename domain, typename compare, typename alloc>
@@ -898,7 +898,7 @@ namespace dlib
             }
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::set"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -955,7 +955,7 @@ namespace dlib
                 serialize(item[i],out);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::vector"); }
+        { abort(); }
     }
 
     template <typename T, typename alloc>
@@ -973,7 +973,7 @@ namespace dlib
                 deserialize(item[i],in);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::vector"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -992,7 +992,7 @@ namespace dlib
                 out.write(&item[0], item.size());
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::vector"); }
+        { abort(); }
     }
 
     template <typename alloc>
@@ -1010,7 +1010,7 @@ namespace dlib
                 in.read(&item[0], item.size());
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::vector"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -1029,7 +1029,7 @@ namespace dlib
                 out.write((char*)&item[0], item.size());
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::vector"); }
+        { abort(); }
     }
 
     template <typename alloc>
@@ -1047,7 +1047,7 @@ namespace dlib
                 in.read((char*)&item[0], item.size());
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::vector"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -1067,7 +1067,7 @@ namespace dlib
                 serialize(item[i],out);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::deque"); }
+        { abort(); }
     }
 
     template <typename T, typename alloc>
@@ -1085,7 +1085,7 @@ namespace dlib
                 deserialize(item[i],in);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::deque"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -1098,10 +1098,10 @@ namespace dlib
         const unsigned long size = static_cast<unsigned long>(item.size());
         try{ serialize(size,out); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::string"); }
+        { abort(); }
 
         out.write(item.c_str(),size);
-        if (!out) throw serialization_error("Error serializing object of type std::string");
+        if (!out) abort();
     }
 
     inline void deserialize (
@@ -1112,13 +1112,13 @@ namespace dlib
         unsigned long size;
         try { deserialize(size,in); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::string"); }
+        { abort(); }
 
         item.resize(size);
         if (size != 0)
         {
             in.read(&item[0],size);
-            if (!in) throw serialization_error("Error deserializing object of type std::string");
+            if (!in) abort();
         }
     }
 
@@ -1132,11 +1132,11 @@ namespace dlib
         const unsigned long size = static_cast<unsigned long>(item.size());
         try{ serialize(size,out); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std::wstring"); }
+        { abort(); }
 
         for (unsigned long i = 0; i < item.size(); ++i)
             serialize(item[i], out);
-        if (!out) throw serialization_error("Error serializing object of type std::wstring");
+        if (!out) abort();
     }
 
     inline void deserialize (
@@ -1147,13 +1147,13 @@ namespace dlib
         unsigned long size;
         try { deserialize(size,in); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std::wstring"); }
+        { abort(); }
 
         item.resize(size);
         for (unsigned long i = 0; i < item.size(); ++i)
             deserialize(item[i],in);
 
-        if (!in) throw serialization_error("Error deserializing object of type std::wstring");
+        if (!in) abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -1166,11 +1166,11 @@ namespace dlib
         const unsigned long size = static_cast<unsigned long>(item.size());
         try{ serialize(size,out); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type ustring"); }
+        { abort(); }
 
         for (unsigned long i = 0; i < item.size(); ++i)
             serialize(item[i], out);
-        if (!out) throw serialization_error("Error serializing object of type ustring");
+        if (!out) abort();
     }
 
     inline void deserialize (
@@ -1181,13 +1181,13 @@ namespace dlib
         unsigned long size;
         try { deserialize(size,in); }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type ustring"); }
+        { abort(); }
 
         item.resize(size);
         for (unsigned long i = 0; i < item.size(); ++i)
             deserialize(item[i],in);
 
-        if (!in) throw serialization_error("Error deserializing object of type ustring");
+        if (!in) abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -1210,7 +1210,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type enumerable");
+            abort();
         }
     }
 
@@ -1232,7 +1232,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type map_pair");
+            abort();
         }
     }
 
@@ -1255,7 +1255,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing a C style array");
+            abort();
         }
     }
 
@@ -1275,7 +1275,7 @@ namespace dlib
             serialize(length-1, out);
             out.write(array, length-1);
             if (!out)
-                throw serialization_error("Error serializing a C-style string");
+                abort();
         }
         else 
         {
@@ -1285,12 +1285,12 @@ namespace dlib
             }
             catch (serialization_error& e)
             {
-                throw serialization_error(e.info + "\n   while serializing a C style array");
+                abort();
             }
             if (length != 0)
                 out.write(array, length);
             if (!out)
-                throw serialization_error("Error serializing a C-style string");
+                abort();
         }
     }
 
@@ -1317,11 +1317,11 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing a C style array");
+            abort();
         }
 
         if (size != length)
-            throw serialization_error("Error deserializing a C style array, lengths do not match");
+            abort();
     }
 
     template <
@@ -1339,14 +1339,14 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing a C style array");
+            abort();
         }
 
         if (size == length)
         {
             in.read(array, size);
             if (!in)
-                throw serialization_error("Error deserializing a C-style array");
+                abort();
         }
         else if (size+1 == length)
         {
@@ -1355,11 +1355,11 @@ namespace dlib
             in.read(array, size);
             array[size] = '\0';
             if (!in)
-                throw serialization_error("Error deserializing a C-style string");
+                abort();
         }
         else
         {
-            throw serialization_error("Error deserializing a C style array, lengths do not match");
+            abort();
         }
     }
 
@@ -1380,7 +1380,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing an object of type std::complex");
+            abort();
         }
     }
 
@@ -1403,7 +1403,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing an object of type std::complex");
+            abort();
         }
     }
 
@@ -1418,7 +1418,7 @@ namespace dlib
         {
             fout.reset(new std::ofstream(filename.c_str(), std::ios::binary));
             if (!(*fout))
-                throw serialization_error("Unable to open " + filename + " for writing.");
+                abort();
         }
 
         template <typename T>
@@ -1441,7 +1441,7 @@ namespace dlib
         {
             fin.reset(new std::ifstream(filename.c_str(), std::ios::binary));
             if (!(*fin))
-                throw serialization_error("Unable to open " + filename + " for reading.");
+                abort();
         }
 
         template <typename T>
@@ -1506,9 +1506,9 @@ namespace dlib
         // serialize into temp string
         std::string temp;
         if (!item.SerializeToString(&temp))
-            throw dlib::serialization_error("Error while serializing a Google Protocol Buffer object.");
+            abort();
         if (temp.size() > std::numeric_limits<uint32>::max())
-            throw dlib::serialization_error("Error while serializing a Google Protocol Buffer object, message too large.");
+            abort();
 
         // write temp to the output stream
         uint32 size = temp.size();
@@ -1533,7 +1533,7 @@ namespace dlib
         in.read((char*)&size, sizeof(size));
         bo.little_to_host(size);
         if (!in || size == 0)
-            throw dlib::serialization_error("Error while deserializing a Google Protocol Buffer object.");
+            abort();
 
         // read the bytes into temp
         std::string temp;
@@ -1543,7 +1543,7 @@ namespace dlib
         // parse temp into item
         if (!in || !item.ParseFromString(temp))
         {
-            throw dlib::serialization_error("Error while deserializing a Google Protocol Buffer object.");
+            abort();
         }
     }
 

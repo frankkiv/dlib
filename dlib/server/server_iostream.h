@@ -130,7 +130,7 @@ namespace dlib
                 // Seriously though, this way it is obvious to the user that something bad happened
                 // since they probably won't have the dlib logger enabled.
                 if (!my_fault)
-                    throw;
+                    abort();
             }
         }
 

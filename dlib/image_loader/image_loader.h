@@ -63,15 +63,15 @@ namespace dlib
 
             // first make sure the BMP starts with BM
             if (in.sgetn(reinterpret_cast<char*>(buf),2) != 2)
-                throw image_load_error("bmp load error 1: header error");
+                abort();
             bytes_read_so_far += 2;
 
             if (buf[0] != 'B' || buf[1] != 'M')
-                throw image_load_error("bmp load error 2: header error");
+                abort();
 
             // now read the BITMAPFILEHEADER
             if (in.sgetn(reinterpret_cast<char*>(buf),12) != 12)
-                throw image_load_error("bmp load error 3: header error");
+                abort();
 
             bytes_read_so_far += 12;
 
@@ -90,12 +90,12 @@ namespace dlib
             // if this value isn't zero then there is something wrong
             // with this bitmap.
             if (bfReserved != 0)
-                throw image_load_error("bmp load error 4: reserved area not zero");
+                abort();
 
 
             // load the BITMAPINFOHEADER
             if (in.sgetn(reinterpret_cast<char*>(buf),40) != 40)
-                throw image_load_error("bmp load error 5: file too short");
+                abort();
             bytes_read_so_far += 40;
 
 
@@ -135,14 +135,14 @@ namespace dlib
 
 
             if (biSize != 40)
-                throw image_load_error("bmp load error 6: header too small");
+                abort();
 
             // read and discard any extra bytes that are part of the header
             if (biSize > 40)
             {
                 if (in.sgetn(reinterpret_cast<char*>(buf),biSize-40) != static_cast<long>(biSize - 40))
                 {
-                    throw image_load_error("bmp load error 7: header too small");
+                    abort();
                 }
                 bytes_read_so_far += biSize-40;
             }
@@ -169,7 +169,7 @@ namespace dlib
                         {
                             if (in.sgetn(reinterpret_cast<char*>(buf),4) != 4)
                             {
-                                throw image_load_error("bmp load error 20: color palette missing");
+                                abort();
                             }
                             bytes_read_so_far += 4;
                             blue[i] = buf[0];
@@ -184,7 +184,7 @@ namespace dlib
                             const long to_read = (long)std::min(bfOffBits - bytes_read_so_far, (unsigned long)sizeof(buf));
                             if (in.sgetn(reinterpret_cast<char*>(buf), to_read) != to_read)
                             {
-                                throw image_load_error("bmp load error: missing data");
+                                abort();
                             }
                             bytes_read_so_far += to_read;
                         }
@@ -196,7 +196,7 @@ namespace dlib
                             {
                                 if (in.sgetn(reinterpret_cast<char*>(buf),1) != 1)
                                 {
-                                    throw image_load_error("bmp load error 21.6: file too short");
+                                    abort();
                                 }
 
                                 unsigned char pixels[8];
@@ -220,7 +220,7 @@ namespace dlib
                                 }
                             }
                             if (in.sgetn(reinterpret_cast<char*>(buf),padding) != padding)
-                                throw image_load_error("bmp load error 9: file too short");
+                                abort();
                         }
 
 
@@ -244,7 +244,7 @@ namespace dlib
                         {
                             if (in.sgetn(reinterpret_cast<char*>(buf),4) != 4)
                             {
-                                throw image_load_error("bmp load error 20: color palette missing");
+                                abort();
                             }
                             bytes_read_so_far += 4;
                             blue[i] = buf[0];
@@ -259,7 +259,7 @@ namespace dlib
                             const long to_read = (long)std::min(bfOffBits - bytes_read_so_far, (unsigned long)sizeof(buf));
                             if (in.sgetn(reinterpret_cast<char*>(buf), to_read) != to_read)
                             {
-                                throw image_load_error("bmp load error: missing data");
+                                abort();
                             }
                             bytes_read_so_far += to_read;
                         }
@@ -271,7 +271,7 @@ namespace dlib
                             {
                                 if (in.sgetn(reinterpret_cast<char*>(buf),1) != 1)
                                 {
-                                    throw image_load_error("bmp load error 21.7: file too short");
+                                    abort();
                                 }
 
                                 const unsigned char pixel1 = (buf[0]>>4);
@@ -292,7 +292,7 @@ namespace dlib
                                 }
                             }
                             if (in.sgetn(reinterpret_cast<char*>(buf),padding) != padding)
-                                throw image_load_error("bmp load error 9: file too short");
+                                abort();
                         }
 
 
@@ -321,7 +321,7 @@ namespace dlib
                         {
                             if (in.sgetn(reinterpret_cast<char*>(buf),4) != 4)
                             {
-                                throw image_load_error("bmp load error 20: color palette missing");
+                                abort();
                             }
                             bytes_read_so_far += 4;
                             blue[i] = buf[0];
@@ -336,7 +336,7 @@ namespace dlib
                             const long to_read = (long)std::min(bfOffBits - bytes_read_so_far, (unsigned long)sizeof(buf));
                             if (in.sgetn(reinterpret_cast<char*>(buf), to_read) != to_read)
                             {
-                                throw image_load_error("bmp load error: missing data");
+                                abort();
                             }
                             bytes_read_so_far += to_read;
                         }
@@ -352,7 +352,7 @@ namespace dlib
                                 {
                                     if (in.sgetn(reinterpret_cast<char*>(buf),1) != 1)
                                     {
-                                        throw image_load_error("bmp load error 21.8: file too short");
+                                        abort();
                                     }
 
                                     rgb_pixel p;
@@ -362,7 +362,7 @@ namespace dlib
                                     assign_pixel(image[row][col],p);
                                 }
                                 if (in.sgetn(reinterpret_cast<char*>(buf),padding) != padding)
-                                    throw image_load_error("bmp load error 9: file too short");
+                                    abort();
                             }
                         }
                         else
@@ -379,7 +379,7 @@ namespace dlib
                             {
                                 if (in.sgetn(reinterpret_cast<char*>(buf),2) != 2)
                                 {
-                                    throw image_load_error("bmp load error 21.9: file too short");
+                                    abort();
                                 }
 
                                 const unsigned char count = buf[0];
@@ -404,7 +404,7 @@ namespace dlib
                                     // a new part of the image relative to where we are now.
                                     if (in.sgetn(reinterpret_cast<char*>(buf),2) != 2)
                                     {
-                                        throw image_load_error("bmp load error 21.1: file too short");
+                                        abort();
                                     }
                                     col += buf[0];
                                     row -= buf[1];
@@ -420,7 +420,7 @@ namespace dlib
                                         if (row >= 0 && col + count <= image.nc() + padding)
                                             continue;
 
-                                        throw image_load_error("bmp load error 21.2: file data corrupt");
+                                        abort();
                                     }
 
                                     // put the bytes into the image
@@ -428,7 +428,7 @@ namespace dlib
                                     {
                                         if (in.sgetn(reinterpret_cast<char*>(buf),1) != 1)
                                         {
-                                            throw image_load_error("bmp load error 21.3: file too short");
+                                            abort();
                                         }
                                         rgb_pixel p;
                                         p.red   = red[buf[0]];
@@ -445,7 +445,7 @@ namespace dlib
                                     {
                                         if (in.sgetn(reinterpret_cast<char*>(buf),1) != 1)
                                         {
-                                            throw image_load_error("bmp load error 21.4: file too short");
+                                            abort();
                                         }
                                     }
 
@@ -460,7 +460,7 @@ namespace dlib
                                     if (row >= 0 && col + count <= image.nc() + padding)
                                         continue;
 
-                                    throw image_load_error("bmp load error 21.5: file data corrupt");
+                                    abort();
                                 }
 
                                 // put the bytes into the image
@@ -481,7 +481,7 @@ namespace dlib
                     }
                     break;
                 case 16:
-                    throw image_load_error ("16 bit BMP images not supported");
+                    abort();
                 case 24:
                     {
                         // figure out how the pixels are packed
@@ -502,7 +502,7 @@ namespace dlib
                             const long to_read = (long)std::min(bfOffBits - bytes_read_so_far, (unsigned long)sizeof(buf));
                             if (in.sgetn(reinterpret_cast<char*>(buf), to_read) != to_read)
                             {
-                                throw image_load_error("bmp load error: missing data");
+                                abort();
                             }
                             bytes_read_so_far += to_read;
                         }
@@ -514,7 +514,7 @@ namespace dlib
                             {
                                 if (in.sgetn(reinterpret_cast<char*>(buf),3) != 3)
                                 {
-                                    throw image_load_error("bmp load error 8: file too short");
+                                    abort();
                                 }
 
                                 rgb_pixel p;
@@ -525,22 +525,22 @@ namespace dlib
 
                             }
                             if (in.sgetn(reinterpret_cast<char*>(buf),padding) != padding)
-                                throw image_load_error("bmp load error 9: file too short");
+                                abort();
                         }
 
                         break;
                     }
                 case 32:
-                    throw image_load_error ("32 bit BMP images not supported");
+                    abort();
                 default:
-                    throw image_load_error("bmp load error 10: unknown color depth");
+                    abort();
 
             }
         }
         catch (...)
         {
             image.clear();
-            throw;
+            abort();
         }
 
     }
@@ -560,12 +560,12 @@ namespace dlib
         try
         {
             if (in.get() != 'D' || in.get() != 'N' || in.get() != 'G')
-                throw image_load_error("the stream does not contain a dng image file");
+                abort();
 
             unsigned long version;
             deserialize(version,in);
             if (version != 1)
-                throw image_load_error("You need the new version of the dlib library to read this dng file");
+                abort();
 
             unsigned long type;
             deserialize(type,in);
@@ -740,21 +740,21 @@ namespace dlib
                         break;
 
                     default:
-                        throw image_load_error("corruption detected in the dng file");
+                        abort();
                 } // switch (type)
 
                 edm.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
             }
             else // if this is a grayscale_float type image
             {
@@ -805,22 +805,22 @@ namespace dlib
                 unsigned long symbol;
                 edm_exp.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm_exp.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm_exp.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
                 edm_exp.decode(symbol);
                 if (symbol != dng_magic_byte)
-                    throw image_load_error("corruption detected in the dng file");
+                    abort();
             }
         }
         catch (...)
         {
             image.clear();
-            throw;
+            abort();
         }
 
     }
@@ -835,7 +835,7 @@ namespace dlib
     {
         std::ifstream fin(file_name.c_str(), std::ios::binary);
         if (!fin)
-            throw image_load_error("Unable to open " + file_name + " for reading.");
+            abort();
         load_bmp(image, fin);
     }
 
@@ -849,7 +849,7 @@ namespace dlib
     {
         std::ifstream fin(file_name.c_str(), std::ios::binary);
         if (!fin)
-            throw image_load_error("Unable to open " + file_name + " for reading.");
+            abort();
         load_dng(image, fin);
     }
 

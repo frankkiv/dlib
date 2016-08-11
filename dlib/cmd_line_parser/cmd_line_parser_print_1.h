@@ -193,7 +193,7 @@ namespace dlib
         catch (...)
         {
             this->reset();
-            throw;
+            abort();
         }
     }
 

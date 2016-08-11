@@ -126,7 +126,7 @@ namespace dlib
         {
             if (order_1) delete [] order_1;
             if (order_2) delete [] order_2;
-            throw;
+            abort();
         }
 
         unsigned long i;
@@ -149,7 +149,7 @@ namespace dlib
             {
                 delete order_1[j];
             }
-            throw;
+            abort();
         }
     }
 

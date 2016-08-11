@@ -286,7 +286,7 @@ string to_png_name (const string& filename)
 {
     string::size_type pos = filename.find_last_of(".");
     if (pos == string::npos)
-        throw dlib::error("invalid filename: " + filename);
+        abort();
     return filename.substr(0,pos) + ".png";
 }
 

@@ -387,7 +387,7 @@ namespace dlib
 
         files.clear();
         if (state.full_name.size() == 0)
-            throw listing_error("This directory object currently doesn't represent any directory.");
+            abort();
 
         HANDLE ffind = INVALID_HANDLE_VALUE;
         try
@@ -401,7 +401,7 @@ namespace dlib
             ffind = FindFirstFileA((path+"*").c_str(), &data);
             if (ffind == INVALID_HANDLE_VALUE)
             {
-                throw listing_error("Unable to list the contents of " + state.full_name);
+                abort();
             }
 
 
@@ -429,7 +429,7 @@ namespace dlib
                     else
                     {
                         // there was an error
-                        throw listing_error("Unable to list the contents of " + state.full_name);
+                        abort();
                     }  
                 }
             } while (no_more_files == false);
@@ -442,7 +442,7 @@ namespace dlib
             if (ffind != INVALID_HANDLE_VALUE)
                 FindClose(ffind);    
             files.clear();
-            throw;
+            abort();
         }
     }
 
@@ -504,7 +504,7 @@ namespace dlib
 
         dirs.clear();
         if (state.full_name.size() == 0)
-            throw listing_error("This directory object currently doesn't represent any directory.");
+            abort();
 
         HANDLE dfind = INVALID_HANDLE_VALUE;
         try
@@ -518,7 +518,7 @@ namespace dlib
             dfind = FindFirstFileA((path+"*").c_str(), &data);
             if (dfind == INVALID_HANDLE_VALUE)
             {
-                throw listing_error("Unable to list the contents of " + state.full_name);
+                abort();
             }
 
 
@@ -546,7 +546,7 @@ namespace dlib
                     else
                     {
                         // there was an error
-                        throw listing_error("Unable to list the contents of " + state.full_name);
+                        abort();
                     }  
                 }
             } while (no_more_files == false);
@@ -559,7 +559,7 @@ namespace dlib
             if (dfind != INVALID_HANDLE_VALUE)
                 FindClose(dfind);
             dirs.clear();
-            throw;
+            abort();
         }
 
     }

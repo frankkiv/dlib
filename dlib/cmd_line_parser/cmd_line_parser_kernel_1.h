@@ -478,7 +478,7 @@ namespace dlib
                             {
                                 // there was something after the command line but it 
                                 // wasn't a valid option
-                                throw cmd_line_parse_error(EINVALID_OPTION,temp);
+                                abort();
                             }                            
                         }
                         
@@ -490,14 +490,14 @@ namespace dlib
                         if (argc + extra_argument <= o->number_of_arguments() + i) 
                         {
                             // there are too few arguments
-                            throw cmd_line_parse_error(ETOO_FEW_ARGS,temp,o->number_of_arguments());    
+                            abort();    
                         }
                         if (extra_argument && first_argument.size() == 0 ) 
                         {
                             // if there would be exactly the right number of arguments if 
                             // the first_argument wasn't empty
                             if (argc == o->number_of_arguments() + i)
-                                throw cmd_line_parse_error(ETOO_FEW_ARGS,temp,o->number_of_arguments());    
+                                abort();    
                             else
                             {
                                 // in this case we just ignore the trailing = and parse everything
@@ -509,7 +509,7 @@ namespace dlib
                         // one by using the --option=arg syntax
                         if (extra_argument == 1 && o->number_of_arguments() == 0)
                         {
-                            throw cmd_line_parse_error(ETOO_MANY_ARGS,temp);
+                            abort();
                         }
                         
 
@@ -553,7 +553,7 @@ namespace dlib
                         // make sure there is something in this string other than -
                         if (argv[i][1] == _dT(charT,'\0'))
                         {
-                            throw cmd_line_parse_error();                            
+                            abort();                            
                         }
 
                         string_type temp = &argv[i][1];
@@ -571,7 +571,7 @@ namespace dlib
                             if (!options.is_in_domain(name))
                             {
                                 // the name is not a valid option
-                                throw cmd_line_parse_error(EINVALID_OPTION,name);
+                                abort();
                             }
 
                             option_t* o = static_cast<option_t*>(options[name]);
@@ -589,7 +589,7 @@ namespace dlib
                             {
                                 // there are too few arguments
                                 std::ostringstream sout;
-                                throw cmd_line_parse_error(ETOO_FEW_ARGS,name,o->number_of_arguments());    
+                                abort();    
                             }
 
                             
@@ -647,7 +647,7 @@ namespace dlib
             }
             options.reset();
 
-            throw;            
+            abort();            
         }
     }
 
@@ -723,7 +723,7 @@ namespace dlib
             void* t = temp;
             string_type n(name);
             options.add(n,t); 
-        }catch (...) { delete temp; throw;}
+        }catch (...) { delete temp; abort();}
     }
 
 // ----------------------------------------------------------------------------------------

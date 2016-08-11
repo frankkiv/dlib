@@ -234,7 +234,7 @@ namespace dlib
         }
         catch (serialization_error e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type array"); 
+            abort(); 
         }
     }
 
@@ -260,7 +260,7 @@ namespace dlib
         catch (serialization_error e)
         { 
             item.clear();
-            throw serialization_error(e.info + "\n   while deserializing object of type array"); 
+            abort(); 
         }
     }
 
@@ -418,7 +418,7 @@ namespace dlib
                 }
                 // try to get more memroy
                 try { array_elements = pool.allocate_array(max); }
-                catch (...) { array_elements = 0;  max_array_size = 0; throw; }
+                catch (...) { array_elements = 0;  max_array_size = 0; abort(); }
                 max_array_size = max;
             }
 

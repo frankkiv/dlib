@@ -496,7 +496,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unsupported version found when deserializing a scan_fhog_pyramid object.");
+            abort();
 
         deserialize(item.fe, in);
         deserialize(item.feats, in);
@@ -516,7 +516,7 @@ namespace dlib
         long dims;
         deserialize(dims, in);
         if (item.get_num_dimensions() != dims)
-            throw serialization_error("Number of dimensions in serialized scan_fhog_pyramid doesn't match the expected number.");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------

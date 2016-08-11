@@ -96,7 +96,7 @@ namespace dlib
             catch (...)
             {
                 if (out_buffer) delete [] out_buffer;
-                throw;
+                abort();
             }
             setp(out_buffer, out_buffer + (out_buffer_size-1));
             setg(in_buffer+max_putback, 

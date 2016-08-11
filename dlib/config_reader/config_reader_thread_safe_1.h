@@ -166,7 +166,7 @@ namespace dlib
         {
             if (m) delete m;
             if (cr) delete cr;
-            throw;
+            abort();
         }
     }
 
@@ -241,7 +241,7 @@ namespace dlib
         {
             if (m) delete m;
             if (cr) delete cr;
-            throw;
+            abort();
         }
     }
 
@@ -269,7 +269,7 @@ namespace dlib
         {
             if (m) delete m;
             if (cr) delete cr;
-            throw;
+            abort();
         }
     }
 
@@ -342,7 +342,7 @@ namespace dlib
         auto_mutex M(*m);
         if (block_table.is_in_domain(name) == false)
         {
-            throw config_reader_access_error(name,"");
+            abort();
         }
 
         return *static_cast<config_reader_thread_safe_1*>(block_table[name]);

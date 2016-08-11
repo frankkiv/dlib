@@ -337,7 +337,7 @@ namespace nativefont
                             d = XOpenDisplay(":0.0");
                             if (d == 0)
                             {
-                                throw dlib::gui_error("Unable to connect to the X display.");
+                                abort();
                             }
                         }
 
@@ -370,7 +370,7 @@ namespace nativefont
                         }
                         fs = XCreateFontSet(d, fontset, &mlist, &mcount, &def_str);
                         if (fs == NULL)
-                           throw dlib::gui_error("gui_error: XCreateFontSet() failure");
+                           abort();
 
                         XFontSetExtents *extent;
                         extent = XExtentsOfFontSet(fs);

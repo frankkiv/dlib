@@ -21,7 +21,7 @@ namespace dlib
         deserialize(item.detector, in);
         deserialize(version, in);
         if (version != 1)
-            throw dlib::serialization_error("Unexpected version found while deserializing a simple_object_detector.");
+            abort();
         deserialize(item.upsampling_amount, in);
     }
 

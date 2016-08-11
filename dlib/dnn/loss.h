@@ -97,7 +97,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "loss_binary_hinge_")
-                throw serialization_error("Unexpected version found while deserializing dlib::loss_binary_hinge_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const loss_binary_hinge_& )
@@ -211,7 +211,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "loss_binary_log_")
-                throw serialization_error("Unexpected version found while deserializing dlib::loss_binary_log_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const loss_binary_log_& )
@@ -326,7 +326,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "loss_multiclass_log_")
-                throw serialization_error("Unexpected version found while deserializing dlib::loss_multiclass_log_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const loss_multiclass_log_& )

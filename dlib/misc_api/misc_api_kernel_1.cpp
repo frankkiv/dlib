@@ -85,7 +85,7 @@ namespace dlib
         auto_mutex lock(cwd_mutex());
         if (SetCurrentDirectoryA(new_dir.c_str()) == 0)
         {
-            throw set_current_dir_error("Error changing current dir to '" + new_dir + "'");
+            abort();
         }
     }
 
@@ -129,12 +129,12 @@ namespace dlib
                     (attribs&FILE_ATTRIBUTE_DIRECTORY) == 0)
                 {
                     // it isn't a directory
-                    throw dir_create_error(dir);
+                    abort();
                 }
             }
             else
             {
-                throw dir_create_error(dir);
+                abort();
             }
         }
     }

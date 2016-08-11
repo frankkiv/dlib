@@ -197,7 +197,7 @@ namespace dlib
         int version;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing dlib::gpu_data.");
+            abort();
         size_t s;
         deserialize(s, in);
         item.set_size(s);

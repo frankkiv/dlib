@@ -126,7 +126,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw dlib::serialization_error("Unknown version number found while deserializing kalman_filter object.");
+                abort();
 
             deserialize(item.got_first_meas, in);
             deserialize(item.x, in);

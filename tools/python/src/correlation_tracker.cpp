@@ -28,7 +28,7 @@ void start_track (
     }
     else
     {
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
     }
 }
 
@@ -57,7 +57,7 @@ double update (
     }
     else
     {
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
     }
 }
 
@@ -77,7 +77,7 @@ double update_guess (
     }
     else
     {
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
     }
 }
 

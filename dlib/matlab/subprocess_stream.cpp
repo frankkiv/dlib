@@ -207,7 +207,7 @@ namespace dlib
             catch (...)
             {
                 if (out_buffer) delete [] out_buffer;
-                throw;
+                abort();
             }
             setp(out_buffer, out_buffer + (out_buffer_size-1));
             setg(in_buffer+max_putback, 
@@ -422,13 +422,13 @@ namespace dlib
     subprocess_stream(const char* program_name) : stderr(NULL), iosub(NULL)
     {
         if (access(program_name, F_OK))
-            throw dlib::error("Error: '" + std::string(program_name) + "' file does not exist.");
+            abort();
         if (access(program_name, X_OK))
-            throw dlib::error("Error: '" + std::string(program_name) + "' file is not executable.");
+            abort();
 
         child_pid = fork();
         if (child_pid == -1) 
-            throw dlib::error("Failed to start child process"); 
+            abort(); 
 
         if (child_pid == 0) 
         {   
@@ -518,10 +518,10 @@ namespace dlib
             int status;
             waitpid(child_pid, &status, 0);
             if (status)
-                throw dlib::error("Child process terminated with an error.\n" + sout.str());
+                abort();
 
             if (sout.str().size() != 0)
-                throw dlib::error("Child process terminated with an error.\n" + sout.str());
+                abort();
         }
     }
 

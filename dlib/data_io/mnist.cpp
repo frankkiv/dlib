@@ -25,10 +25,10 @@ namespace dlib
         ifstream fin2((folder_name+"/train-labels-idx1-ubyte").c_str(), ios::binary);
         ifstream fin3((folder_name+"/t10k-images-idx3-ubyte").c_str(), ios::binary);
         ifstream fin4((folder_name+"/t10k-labels-idx1-ubyte").c_str(), ios::binary);
-        if (!fin1) throw error("Unable to open file train-images-idx3-ubyte");
-        if (!fin2) throw error("Unable to open file train-labels-idx1-ubyte");
-        if (!fin3) throw error("Unable to open file t10k-images-idx3-ubyte");
-        if (!fin4) throw error("Unable to open file t10k-labels-idx1-ubyte");
+        if (!fin1) abort();
+        if (!fin2) abort();
+        if (!fin3) abort();
+        if (!fin4) abort();
 
 
         byte_orderer bo;
@@ -40,29 +40,29 @@ namespace dlib
         fin1.read((char*)&nr, sizeof(nr));  bo.big_to_host(nr);
         fin1.read((char*)&nc, sizeof(nc));  bo.big_to_host(nc);
         if (magic != 2051 || num != 60000 || nr != 28 || nc != 28)
-            throw error("mndist dat files are corrupted.");
+            abort();
 
         fin2.read((char*)&magic, sizeof(magic));  bo.big_to_host(magic);
         fin2.read((char*)&num2, sizeof(num2));  bo.big_to_host(num2);
         if (magic != 2049 || num2 != 60000)
-            throw error("mndist dat files are corrupted.");
+            abort();
 
         fin3.read((char*)&magic, sizeof(magic));  bo.big_to_host(magic);
         fin3.read((char*)&num3, sizeof(num3));  bo.big_to_host(num3);
         fin3.read((char*)&nr, sizeof(nr));  bo.big_to_host(nr);
         fin3.read((char*)&nc, sizeof(nc));  bo.big_to_host(nc);
         if (magic != 2051 || num3 != 10000 || nr != 28 || nc != 28)
-            throw error("mndist dat files are corrupted.");
+            abort();
 
         fin4.read((char*)&magic, sizeof(magic));  bo.big_to_host(magic);
         fin4.read((char*)&num4, sizeof(num4));  bo.big_to_host(num4);
         if (magic != 2049 || num4 != 10000)
-            throw error("mndist dat files are corrupted.");
+            abort();
 
-        if (!fin1) throw error("Unable to read train-images-idx3-ubyte");
-        if (!fin2) throw error("Unable to read train-labels-idx1-ubyte");
-        if (!fin3) throw error("Unable to read t10k-images-idx3-ubyte");
-        if (!fin4) throw error("Unable to read t10k-labels-idx1-ubyte");
+        if (!fin1) abort();
+        if (!fin2) abort();
+        if (!fin3) abort();
+        if (!fin4) abort();
 
 
         training_images.resize(60000);
@@ -94,15 +94,15 @@ namespace dlib
             testing_labels[i] = l;
         }
 
-        if (!fin1) throw error("Unable to read train-images-idx3-ubyte");
-        if (!fin2) throw error("Unable to read train-labels-idx1-ubyte");
-        if (!fin3) throw error("Unable to read t10k-images-idx3-ubyte");
-        if (!fin4) throw error("Unable to read t10k-labels-idx1-ubyte");
+        if (!fin1) abort();
+        if (!fin2) abort();
+        if (!fin3) abort();
+        if (!fin4) abort();
 
-        if (fin1.get() != EOF) throw error("Unexpected bytes at end of train-images-idx3-ubyte");
-        if (fin2.get() != EOF) throw error("Unexpected bytes at end of train-labels-idx1-ubyte");
-        if (fin3.get() != EOF) throw error("Unexpected bytes at end of t10k-images-idx3-ubyte");
-        if (fin4.get() != EOF) throw error("Unexpected bytes at end of t10k-labels-idx1-ubyte");
+        if (fin1.get() != EOF) abort();
+        if (fin2.get() != EOF) abort();
+        if (fin3.get() != EOF) abort();
+        if (fin4.get() != EOF) abort();
     }
 }
 

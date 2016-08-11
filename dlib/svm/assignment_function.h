@@ -237,7 +237,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 2)
-            throw serialization_error("Unexpected version found while deserializing dlib::assignment_function.");
+            abort();
 
         deserialize(fe, in);
         deserialize(weights, in);

@@ -31,7 +31,7 @@ full_object_detection run_predictor (
     }
     else
     {
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
     }
 }
 
@@ -90,7 +90,7 @@ inline shape_predictor train_shape_predictor_on_images_py (
 {
     const unsigned long num_images = len(pyimages);
     if (num_images != len(pydetections))
-        throw dlib::error("The length of the detections list must match the length of the images list.");
+        abort();
 
     std::vector<std::vector<full_object_detection> > detections(num_images);
     dlib::array<array2d<unsigned char> > images(num_images);
@@ -110,10 +110,10 @@ inline double test_shape_predictor_with_images_py (
     const unsigned long num_images = len(pyimages);
     const unsigned long num_scales = len(pyscales);
     if (num_images != len(pydetections))
-        throw dlib::error("The length of the detections list must match the length of the images list.");
+        abort();
 
     if (num_scales > 0 && num_scales != num_images)
-        throw dlib::error("The length of the scales list must match the length of the detections list.");
+        abort();
 
     std::vector<std::vector<full_object_detection> > detections(num_images);
     std::vector<std::vector<double> > scales;
@@ -132,7 +132,7 @@ inline double test_shape_predictor_with_images_py (
         if (num_scales > 0)
         {
             if (num_boxes != len(pyscales[i]))
-                throw dlib::error("The length of the scales list must match the length of the detections list.");
+                abort();
             for (unsigned long j = 0; j < num_boxes; ++j)
                 scales[i].push_back(extract<double>(pyscales[i][j]));
         }

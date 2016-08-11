@@ -298,7 +298,7 @@ namespace dlib
         catch (...)
         {
             clear();
-            throw;
+            abort();
         }
     }
 
@@ -317,7 +317,7 @@ namespace dlib
         clear();
         std::ifstream fin(config_file.c_str());
         if (!fin)
-            throw file_not_found(config_file);
+            abort();
 
         load_from(fin);
     }
@@ -411,7 +411,7 @@ namespace dlib
                 seen_identifier = false;
                 // the next character should be either a '=' or a '{'
                 if (type != tokenizer::CHAR || (token[0] != '=' && token[0] != '{'))
-                    throw config_reader_error(line_number);
+                    abort();
                 
                 if (token[0] == '=')
                 {
@@ -471,7 +471,7 @@ namespace dlib
 
                     // make sure this key isn't already in the key_table
                     if (cr.key_table.is_in_domain(identifier))
-                        throw config_reader_error(line_number,true);
+                        abort();
 
                     // add this key/value pair to the key_table
                     cr.key_table.add(identifier,value);
@@ -481,12 +481,12 @@ namespace dlib
                 {
                     // make sure this identifier isn't already in the block_table
                     if (cr.block_table.is_in_domain(identifier))
-                        throw config_reader_error(line_number,true);
+                        abort();
 
                     config_reader_kernel_1* new_cr = new config_reader_kernel_1;
                     void* vtemp = new_cr;
                     try { cr.block_table.add(identifier,vtemp); }
-                    catch (...) { delete new_cr; throw; }
+                    catch (...) { delete new_cr; abort(); }
 
                     // now parse this block 
                     parse_config_file(*new_cr,tok,line_number,false);
@@ -496,7 +496,7 @@ namespace dlib
             {
                 // the next thing should be an identifier but if it isn't this is an error
                 if (type != tokenizer::IDENTIFIER)
-                    throw config_reader_error(line_number);
+                    abort();
 
                 seen_identifier = true;
                 identifier = token;
@@ -562,7 +562,7 @@ namespace dlib
     {
         if (is_block_defined(name) == false)
         {
-            throw config_reader_access_error(name,"");
+            abort();
         }
 
         return *static_cast<config_reader_kernel_1*>(block_table[name]);
@@ -582,7 +582,7 @@ namespace dlib
     {
         if (is_key_defined(key) == false)
         {
-            throw config_reader_access_error("",key);
+            abort();
         }
 
         return key_table[key];

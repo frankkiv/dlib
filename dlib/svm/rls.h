@@ -158,7 +158,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw dlib::serialization_error("Unknown version number found while deserializing rls object.");
+                abort();
 
             deserialize(item.w, in);
             deserialize(item.R, in);

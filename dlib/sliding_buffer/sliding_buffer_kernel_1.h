@@ -79,7 +79,7 @@ namespace dlib
             }
             mask = buffer_size-1;
             try { buffer = new T[buffer_size]; }
-            catch (...) { buffer = 0; buffer_size = 0; throw; }
+            catch (...) { buffer = 0; buffer_size = 0; abort(); }
         }
 
         unsigned long size (
@@ -218,7 +218,7 @@ namespace dlib
         catch (serialization_error e)
         { 
             item.clear();
-            throw serialization_error(e.info + "\n   while deserializing object of type sliding_buffer_kernel_1"); 
+            abort(); 
         }
     }
 }

@@ -143,7 +143,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::running_gradient.");
+                abort();
             deserialize(item.n, in);
             deserialize(item.R, in);
             deserialize(item.w, in);

@@ -39,7 +39,7 @@ namespace dlib
                 if (!(*fout))
                 {
                     delete fout;
-                    throw error("logger_config: unable to open output file " + file_name);
+                    abort();
                 }
 
                 // add this file to our file map
@@ -115,7 +115,7 @@ namespace dlib
                     if (one == "file" && three.size() == 0)
                         dlog.set_output_stream(get_file_stream(two));
                     else
-                        throw error("logger_config: invalid argument to output option: " + output);
+                        abort();
                 }
 
             } // if (cr.is_key_defined("output"))
@@ -143,7 +143,7 @@ namespace dlib
         std::ifstream fin(file_name.c_str());
 
         if (!fin)
-            throw logger_config_file_error("logger_config: unable to open config file " + file_name);
+            abort();
 
         config_reader temp(fin);
         configure_loggers_from_file(temp);
@@ -186,7 +186,7 @@ namespace dlib
                     if (one == "file" && three.size() == 0)
                         set_all_logging_output_streams(get_file_stream(two));
                     else
-                        throw logger_config_file_error("logger_config: invalid argument to output option: " + output);
+                        abort();
                 }
 
             } // if (cr.is_key_defined("output"))

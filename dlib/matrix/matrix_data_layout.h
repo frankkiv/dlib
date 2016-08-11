@@ -1091,7 +1091,7 @@ namespace dlib
 
                     mem = mxCreateDoubleMatrix(nr, nc, mxREAL);
                     if (mem == 0)
-                        throw std::bad_alloc();
+                        abort();
                     data = mxGetPr(mem);
                 }
                 else
@@ -1234,7 +1234,7 @@ namespace dlib
 
                     mem = mxCreateNumericMatrix(nr, nc, mxSINGLE_CLASS, mxREAL);
                     if (mem == 0)
-                        throw std::bad_alloc();
+                        abort();
                     data = (float*)mxGetData(mem);
                 }
                 else

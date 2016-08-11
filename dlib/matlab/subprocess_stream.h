@@ -34,7 +34,7 @@ namespace dlib
         if (item.size() != 0)
             out.write((const char*)&item(0,0), sizeof(T)*item.size());
         if (!out)
-            throw dlib::serialization_error("Error writing matrix to interprocess iostream.");
+            abort();
     }
 
     template <typename T, long NR, long NC, typename MM, typename L>
@@ -47,7 +47,7 @@ namespace dlib
         if (item.size() != 0)
             in.read((char*)&item(0,0), sizeof(T)*item.size());
         if (!in)
-            throw dlib::serialization_error("Error reading matrix from interprocess iostream.");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ namespace dlib
         interprocess_serialize(arg1, impl::get_data_iostream());
         send_to_parent_process(std::forward<T>(args)...);
         if (!impl::get_data_iostream())
-            throw dlib::error("Error sending object to parent process.");
+            abort();
     }
 
     inline void receive_from_parent_process() {}
@@ -81,7 +81,7 @@ namespace dlib
         interprocess_deserialize(arg1, impl::get_data_iostream());
         receive_from_parent_process(std::forward<T>(args)...);
         if (!impl::get_data_iostream())
-            throw dlib::error("Error receiving object from parent process.");
+            abort();
     }
 
 
@@ -164,7 +164,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << stderr.rdbuf();
-                throw dlib::error("Error sending object to child process.\n" + sout.str());
+                abort();
             }
         }
         void send() {iosub.flush();}
@@ -183,7 +183,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << stderr.rdbuf();
-                throw dlib::error("Error receiving object from child process.\n" + sout.str() );
+                abort();
             }
         }
         void receive() {}
@@ -198,7 +198,7 @@ namespace dlib
         private:
             int fd[2];
         public:
-            cpipe() { if (socketpair(AF_LOCAL, SOCK_STREAM, 0, fd)) throw dlib::error("Failed to create pipe"); }
+            cpipe() { if (socketpair(AF_LOCAL, SOCK_STREAM, 0, fd)) abort(); }
             ~cpipe() { close(); }
             int parent_fd() const { return fd[0]; }
             int child_fd() const { return fd[1]; }

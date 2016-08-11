@@ -36,7 +36,7 @@ namespace dlib
         if (realpath(name.c_str(),buf) == 0)
         {
             // the file was not found
-            throw file_not_found("Unable to find file " + name);
+            abort();
         }
         state.full_name = buf;
 
@@ -45,7 +45,7 @@ namespace dlib
         if (pos == string::npos)
         {
             // no valid full path has no separtor characters.  
-            throw file_not_found("Unable to find file " + name);
+            abort();
         }
         state.name = state.full_name.substr(pos+1);
 
@@ -57,7 +57,7 @@ namespace dlib
         {
             // there was an error during the call to stat64 or
             // name is actually a directory
-            throw file_not_found("Unable to find file " + name);
+            abort();
         }
         else
         {
@@ -110,7 +110,7 @@ namespace dlib
         if (realpath(name.c_str(),buf) == 0)
         {
             // the directory was not found
-            throw dir_not_found("Unable to find directory " + name);
+            abort();
         }
         state.full_name = buf;
   
@@ -139,12 +139,12 @@ namespace dlib
         if (::stat64(state.full_name.c_str(),&buffer))
         {
             // the directory was not found
-            throw dir_not_found("Unable to find directory " + name);
+            abort();
         }
         else if (S_ISDIR(buffer.st_mode) == 0)
         {
             // It is not a directory
-            throw dir_not_found("Unable to find directory " + name);
+            abort();
         }
     }
 

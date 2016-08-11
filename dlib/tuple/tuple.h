@@ -369,7 +369,7 @@ namespace dlib
             }
             catch (serialization_error& e)
             {
-                throw serialization_error(e.info + "\n   while serializing an object of type dlib::tuple<>");
+                abort();
             }
         }
 
@@ -384,7 +384,7 @@ namespace dlib
             }
             catch (serialization_error& e)
             {
-                throw serialization_error(e.info + "\n   while deserializing an object of type dlib::tuple<>");
+                abort();
             }
         }
 

@@ -254,7 +254,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 2)
-            throw dlib::serialization_error("Unexpected version number found while deserializing dlib::running_stats object.");
+            abort();
 
         deserialize(item.sum, in);
         deserialize(item.sum_sqr, in);

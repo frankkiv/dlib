@@ -93,7 +93,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type decision_function"); 
+            abort(); 
         }
     }
 
@@ -114,7 +114,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type decision_function"); 
+            abort(); 
         }
     }
 
@@ -180,7 +180,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type probabilistic_function"); 
+            abort(); 
         }
     }
 
@@ -200,7 +200,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type probabilistic_function"); 
+            abort(); 
         }
     }
 
@@ -275,7 +275,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type probabilistic_decision_function"); 
+            abort(); 
         }
     }
 
@@ -295,7 +295,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type probabilistic_decision_function"); 
+            abort(); 
         }
     }
 
@@ -543,7 +543,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type distance_function"); 
+            abort(); 
         }
     }
 
@@ -564,7 +564,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type distance_function"); 
+            abort(); 
         }
     }
 
@@ -625,7 +625,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type normalized_function"); 
+            abort(); 
         }
     }
 
@@ -645,7 +645,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type normalized_function"); 
+            abort(); 
         }
     }
 
@@ -719,7 +719,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type projection_function"); 
+            abort(); 
         }
     }
 
@@ -739,7 +739,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type projection_function"); 
+            abort(); 
         }
     }
 
@@ -848,7 +848,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type multiclass_linear_decision_function"); 
+            abort(); 
         }
     }
 
@@ -869,7 +869,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type multiclass_linear_decision_function"); 
+            abort(); 
         }
     }
 

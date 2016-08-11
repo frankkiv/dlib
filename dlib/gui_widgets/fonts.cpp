@@ -124,7 +124,7 @@ namespace dlib
         catch (...)
         {
             delete [] l;
-            throw;
+            abort();
         }
     }
 
@@ -148,7 +148,7 @@ namespace dlib
         }
         catch (serialization_error e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type letter"); 
+            abort(); 
         }
     }
 
@@ -181,7 +181,7 @@ namespace dlib
             item.w = 0;
             item.count = 0;
             item.points = 0;
-            throw serialization_error(e.info + "\n   while deserializing object of type letter"); 
+            abort(); 
         }
     }
 

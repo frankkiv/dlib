@@ -163,7 +163,7 @@ void throw_invalid_box_error_message (
             sout2 << "  " << imgname << "\n";
         }
     }
-    throw error("\n"+wrap_string(sout.str()) + "\n" + sout2.str());
+    abort();
 }
 
 // ----------------------------------------------------------------------------------------

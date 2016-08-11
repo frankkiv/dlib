@@ -62,7 +62,7 @@ struct serialize_pickle : boost::python::pickle_suite
         }
         else
         {
-            throw error("Unable to unpickle, error in input file.");
+            abort();
         }
     }
 };

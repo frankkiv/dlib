@@ -84,7 +84,7 @@ namespace dlib
                      << "is if your dataset contains only zero vectors (or vectors \n"
                      << "approximately zero).\n";
                 clear();
-                throw empirical_kernel_map_error(sout.str());
+                abort();
             }
 
             kernel = lisf.get_kernel();
@@ -364,7 +364,7 @@ namespace dlib
             if (basis.size() == 0)
             {
                 clear();
-                throw empirical_kernel_map_error("All basis_samples given to empirical_kernel_map::load() were zero vectors");
+                abort();
             }
 
             matrix<scalar_type,0,0,mem_manager_type> K(kernel_matrix(kernel, basis)), U,W,V;
@@ -372,7 +372,7 @@ namespace dlib
             if (svd2(false,true,K,U,W,V))
             {
                 clear();
-                throw empirical_kernel_map_error("While loading empirical_kernel_map with data, SVD failed to converge.");
+                abort();
             }
 
 
@@ -383,7 +383,7 @@ namespace dlib
             if (num_not_zero == 0)
             {
                 clear();
-                throw empirical_kernel_map_error("While loading empirical_kernel_map with data, SVD failed");
+                abort();
             }
 
             weights.set_size(num_not_zero, basis.size());

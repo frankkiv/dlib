@@ -263,7 +263,7 @@ namespace dlib
         }
         else 
         {
-            throw serialization_error("Unexpected version encountered while deserializing a dlib::object_detector object.");
+            abort();
         }
     }
 

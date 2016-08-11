@@ -77,7 +77,7 @@ public:
         _nr = shape[0];
         _nc = shape[1];
         if (shape[2] != 3)
-            throw dlib::error("Error, python object is not a three band image and therefore can't be a RGB image.");
+            abort();
     }
 
     friend inline long num_rows(const numpy_rgb_image& img) { return img._nr; } 

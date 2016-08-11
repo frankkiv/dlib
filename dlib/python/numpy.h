@@ -21,13 +21,13 @@ void validate_numpy_array_type (
     const char ch = extract<char>(obj.attr("dtype").attr("char"));
 
     if (dlib::is_same_type<T,double>::value && ch != 'd')
-        throw dlib::error("Expected numpy.ndarray of float64");
+        abort();
     if (dlib::is_same_type<T,float>::value && ch != 'f')
-        throw dlib::error("Expected numpy.ndarray of float32");
+        abort();
     if (dlib::is_same_type<T,dlib::int32>::value && ch != 'i')
-        throw dlib::error("Expected numpy.ndarray of int32");
+        abort();
     if (dlib::is_same_type<T,unsigned char>::value && ch != 'B')
-        throw dlib::error("Expected numpy.ndarray of uint8");
+        abort();
 }
 
 // ----------------------------------------------------------------------------------------
@@ -45,13 +45,13 @@ void get_numpy_ndarray_shape (
 {
     Py_buffer pybuf;
     if (PyObject_GetBuffer(obj.ptr(), &pybuf, PyBUF_STRIDES ))
-        throw dlib::error("Expected numpy.ndarray with shape set.");
+        abort();
 
     try
     {
 
         if (pybuf.ndim > dims)
-            throw dlib::error("Expected array with " + dlib::cast_to_string(dims) + " dimensions.");
+            abort();
 
         for (int i = 0; i < dims; ++i)
         {
@@ -64,7 +64,7 @@ void get_numpy_ndarray_shape (
     catch(...)
     {
         PyBuffer_Release(&pybuf);
-        throw;
+        abort();
     }
     PyBuffer_Release(&pybuf);
 }
@@ -88,18 +88,18 @@ void get_numpy_ndarray_parts (
 {
     Py_buffer pybuf;
     if (PyObject_GetBuffer(obj.ptr(), &pybuf, PyBUF_STRIDES | PyBUF_WRITABLE ))
-        throw dlib::error("Expected writable numpy.ndarray with shape set.");
+        abort();
 
     try
     {
         validate_numpy_array_type<T>(obj);
 
         if (pybuf.ndim > dims)
-            throw dlib::error("Expected array with " + dlib::cast_to_string(dims) + " dimensions.");
+            abort();
         get_numpy_ndarray_shape(obj, shape);
 
         if (dlib::pixel_traits<T>::num > 1 && dlib::pixel_traits<T>::num != shape[dims-1])
-            throw dlib::error("Expected numpy.ndarray with " + dlib::cast_to_string(dlib::pixel_traits<T>::num) + " channels.");
+            abort();
 
         if (PyBuffer_IsContiguous(&pybuf, 'C'))
             data = (T*)pybuf.buf;
@@ -107,14 +107,14 @@ void get_numpy_ndarray_parts (
         {
             contig_buf.resize(pybuf.len);
             if (PyBuffer_ToContiguous(&contig_buf[0], &pybuf, pybuf.len, 'C'))
-                throw dlib::error("Can't copy numpy.ndarray to a contiguous buffer.");
+                abort();
             data = &contig_buf[0];
         }
     }
     catch(...)
     {
         PyBuffer_Release(&pybuf);
-        throw;
+        abort();
     }
     PyBuffer_Release(&pybuf);
 }
@@ -138,18 +138,18 @@ void get_numpy_ndarray_parts (
 {
     Py_buffer pybuf;
     if (PyObject_GetBuffer(obj.ptr(), &pybuf, PyBUF_STRIDES ))
-        throw dlib::error("Expected numpy.ndarray with shape set.");
+        abort();
 
     try
     {
         validate_numpy_array_type<T>(obj);
 
         if (pybuf.ndim > dims)
-            throw dlib::error("Expected array with " + dlib::cast_to_string(dims) + " dimensions.");
+            abort();
         get_numpy_ndarray_shape(obj, shape);
 
         if (dlib::pixel_traits<T>::num > 1 && dlib::pixel_traits<T>::num != shape[dims-1])
-            throw dlib::error("Expected numpy.ndarray with " + dlib::cast_to_string(dlib::pixel_traits<T>::num) + " channels.");
+            abort();
 
         if (PyBuffer_IsContiguous(&pybuf, 'C'))
             data = (const T*)pybuf.buf;
@@ -157,14 +157,14 @@ void get_numpy_ndarray_parts (
         {
             contig_buf.resize(pybuf.len);
             if (PyBuffer_ToContiguous(&contig_buf[0], &pybuf, pybuf.len, 'C'))
-                throw dlib::error("Can't copy numpy.ndarray to a contiguous buffer.");
+                abort();
             data = &contig_buf[0];
         }
     }
     catch(...)
     {
         PyBuffer_Release(&pybuf);
-        throw;
+        abort();
     }
     PyBuffer_Release(&pybuf);
 }

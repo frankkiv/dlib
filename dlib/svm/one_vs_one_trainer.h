@@ -129,7 +129,7 @@ namespace dlib
                         std::ostringstream sout;
                         sout << "In one_vs_one_trainer, no trainer registered for the (" 
                              << pairs.back().first << ", " << pairs.back().second << ") label pair.";
-                        throw invalid_label(sout.str(), pairs.back().first, pairs.back().second);
+                        abort();
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace dlib
 
             if (helper.error_message.size() != 0)
             {
-                throw dlib::error("binary trainer threw while training one vs. one classifier.  Error was: " + helper.error_message);
+                abort();
             }
             return trained_function_type(helper.dfs);
         }

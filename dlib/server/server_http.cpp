@@ -137,9 +137,9 @@ namespace dlib
 
             // if we quit the loop because the data is longer than expected or we hit EOF
             if (in.peek() == EOF)
-                throw http_parse_error("HTTP field from client terminated incorrectly", 414);
+                abort();
             if (buffer.size() == max)
-                throw http_parse_error("HTTP field from client is too long", 414);
+                abort();
 
             in.get();
             // eat any remaining whitespace
@@ -205,14 +205,14 @@ namespace dlib
                     sin >> content_length;
                     if (!sin)
                     {
-                        throw http_parse_error("Invalid Content-Length of '" + line.substr(16) + "'", 411);
+                        abort();
                     }
 
                     if (content_length > max_content_length)
                     {
                         std::ostringstream sout;
                         sout << "Content-Length of post back is too large.  It must be less than " << max_content_length;
-                        throw http_parse_error(sout.str(), 413);
+                        abort();
                     }
                 }
                 // look for any cookies
@@ -291,7 +291,7 @@ namespace dlib
 
 
         if (!in)
-            throw http_parse_error("Error parsing HTTP request", 500);
+            abort();
 
         return content_length;
     }

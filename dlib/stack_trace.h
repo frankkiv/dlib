@@ -77,7 +77,7 @@ namespace dlib
         dlib_o_out << _message << "\n\n";                                      \
         dlib_o_out << "Stack Trace: \n" << dlib::get_stack_trace() << "\n";        \
         dlib_assert_breakpoint();                                           \
-        throw dlib::fatal_error(dlib::EBROKEN_ASSERT,dlib_o_out.str());      \
+        abort();      \
     }}                                                                      
 
 

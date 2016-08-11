@@ -73,7 +73,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type sparse_radial_basis_kernel"); 
+            abort(); 
         }
     }
 
@@ -92,7 +92,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type sparse_radial_basis_kernel"); 
+            abort(); 
         }
     }
 
@@ -160,7 +160,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type sparse_polynomial_kernel"); 
+            abort(); 
         }
     }
 
@@ -181,7 +181,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type sparse_polynomial_kernel"); 
+            abort(); 
         }
     }
 
@@ -246,7 +246,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type sparse_sigmoid_kernel"); 
+            abort(); 
         }
     }
 
@@ -266,7 +266,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while deserializing object of type sparse_sigmoid_kernel"); 
+            abort(); 
         }
     }
 

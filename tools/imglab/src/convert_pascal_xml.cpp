@@ -59,7 +59,7 @@ namespace
             {
                 std::ostringstream sout;
                 sout << "Invalid XML document.  Root tag must be <annotation>.  Found <" << name << "> instead.";
-                throw dlib::error(sout.str());
+                abort();
             }
 
 
@@ -168,7 +168,7 @@ namespace
         {
             std::ostringstream sout;
             sout << "There is a fatal error on line " << line_number << " so parsing will now halt.";
-            throw dlib::error(sout.str());
+            abort();
         }
     };
 
@@ -189,7 +189,7 @@ namespace
 
         ifstream fin(file.c_str());
         if (!fin)
-            throw dlib::error("Unable to open file " + file);
+            abort();
         parser.parse(fin);
     }
 
@@ -230,7 +230,7 @@ void convert_pascal_xml(
         catch (exception& )
         {
             cout << "Error while processing file " << parser[i] << endl << endl;
-            throw;
+            abort();
         }
     }
 

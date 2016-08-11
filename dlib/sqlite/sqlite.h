@@ -73,7 +73,7 @@ namespace dlib
             db.reset(ptr, impl::db_deleter());
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -140,11 +140,11 @@ namespace dlib
             if (status != SQLITE_OK)
             {
                 sqlite3_finalize(stmt);
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
             if (stmt == 0)
             {
-                throw sqlite_error("Invalid SQL statement");
+                abort();
             }
         }
 
@@ -164,11 +164,11 @@ namespace dlib
             if (step_status != SQLITE_DONE && step_status != SQLITE_ROW)
             {
                 if (step_status == SQLITE_ERROR)
-                    throw sqlite_error(sqlite3_errmsg(db.get()));
+                    abort();
                 else if (step_status == SQLITE_BUSY)
-                    throw sqlite_error("statement::exec() failed.  SQLITE_BUSY returned");
+                    abort();
                 else
-                    throw sqlite_error("statement::exec() failed.");
+                    abort();
             }
         }
 
@@ -195,7 +195,7 @@ namespace dlib
                     }
                     else
                     {
-                        throw sqlite_error(sqlite3_errmsg(db.get()));
+                        abort();
                     }
                 }
             }
@@ -427,7 +427,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -454,7 +454,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -477,7 +477,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -500,7 +500,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -523,7 +523,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -545,7 +545,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -568,7 +568,7 @@ namespace dlib
 
             if (status != SQLITE_OK)
             {
-                throw sqlite_error(sqlite3_errmsg(db.get()));
+                abort();
             }
         }
 
@@ -581,7 +581,7 @@ namespace dlib
                 if (sqlite3_reset(stmt) != SQLITE_OK)
                 {
                     step_status = SQLITE_DONE;
-                    throw sqlite_error(sqlite3_errmsg(db.get()));
+                    abort();
                 }
                 needs_reset = false;
                 step_status = SQLITE_DONE;

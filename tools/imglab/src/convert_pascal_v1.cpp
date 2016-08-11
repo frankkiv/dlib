@@ -46,7 +46,7 @@ namespace
     {
         ifstream fin(file.c_str());
         if (!fin)
-            throw dlib::error("Unable to open file " + file);
+            abort();
 
         img = dlib::image_dataset_metadata::image();
 
@@ -79,7 +79,7 @@ namespace
                     long idx = sa = words[4];
                     --idx;
                     if (idx >= (long)img.boxes.size())
-                        throw dlib::error("Invalid object id number of " + words[4]);
+                        abort();
 
                     if (words[0] == "Center" && words[1] == "point" && words.size() > 9)
                     {
@@ -127,7 +127,7 @@ namespace
                 return temp;
 
             if (parent.is_root())
-                throw dlib::error("Can't figure out where the file " + image_name + " is located.");
+                abort();
             parent = get_parent_directory(parent);
         }
     }
@@ -167,7 +167,7 @@ void convert_pascal_v1(
         catch (exception& )
         {
             cout << "Error while processing file " << parser[i] << endl << endl;
-            throw;
+            abort();
         }
     }
 

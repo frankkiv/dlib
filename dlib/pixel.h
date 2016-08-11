@@ -1465,7 +1465,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type rgb_alpha_pixel"); 
+            abort(); 
         }
     }
 
@@ -1485,7 +1485,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type rgb_alpha_pixel"); 
+            abort(); 
         }
     }
 
@@ -1504,7 +1504,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type rgb_pixel"); 
+            abort(); 
         }
     }
 
@@ -1523,7 +1523,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type rgb_pixel"); 
+            abort(); 
         }
     }
 
@@ -1542,7 +1542,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type bgr_pixel"); 
+            abort(); 
         }
     }
 
@@ -1561,7 +1561,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type bgr_pixel"); 
+            abort(); 
         }
     }
 
@@ -1580,7 +1580,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type hsi_pixel"); 
+            abort(); 
         }
     }
 
@@ -1599,7 +1599,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type hsi_pixel"); 
+            abort(); 
         }
     }
 
@@ -1618,7 +1618,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing object of type lab_pixel");
+            abort();
         }
     }
 
@@ -1637,7 +1637,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing object of type lab_pixel");
+            abort();
         }
     }
 

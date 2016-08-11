@@ -22,7 +22,7 @@ do{                                                                             
         std::ostringstream sout;                                               \
         sout << "Error while calling " << #call << " in file " << __FILE__ << ":" << __LINE__ << ". ";\
         sout << "code: " << error << ", reason: " << cudaGetErrorString(error);\
-        throw dlib::cuda_error(sout.str());                                          \
+        abort();                                          \
     }                                                                          \
 }while(false)
 

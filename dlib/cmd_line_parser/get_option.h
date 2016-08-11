@@ -35,7 +35,7 @@ namespace dlib
             if (cr.is_key_defined(option_name))
             {
                 try{ return string_cast<T>(cr[option_name]); }
-                catch (string_cast_error&) { throw option_parse_error(full_option_name, cr[option_name]); }
+                catch (string_cast_error&) { abort(); }
             }
         }
         else
@@ -91,7 +91,7 @@ namespace dlib
             }
             catch (string_cast_error&) 
             { 
-                throw option_parse_error(option_name, parser.option(option_name).argument()); 
+                abort(); 
             }
         }
         return default_value;

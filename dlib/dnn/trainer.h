@@ -666,7 +666,7 @@ namespace dlib
         catch(std::exception& e)
         {
             std::cerr << e.what() << std::endl;
-            throw;
+            abort();
         }
 
         void wait_for_thread_to_pause() const
@@ -732,7 +732,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 7)
-                throw serialization_error("Unexpected version found while deserializing dlib::dnn_trainer.");
+                abort();
 
             size_t num_layers = 0;
             deserialize(num_layers, in);
@@ -742,7 +742,7 @@ namespace dlib
                 sout << "Error deserializing dlib::dnn_trainer.  The saved sync file is for a network with " << std::endl;
                 sout << "a different number of layers.  We expected the number of layers to be " << dnn_trainer::num_layers << " but" << std::endl;
                 sout << "instead the file contains " << num_layers << " layers." << std::endl;
-                throw serialization_error(sout.str());
+                abort();
             }
 
             double dtemp; long ltemp;

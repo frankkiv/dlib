@@ -599,7 +599,7 @@ namespace dlib
                         // if this new dimension doesn't match what we have seen previously
                         if (seen_dim && num_dims != temp.template get<long>())
                         {
-                            throw invalid_problem("remote hosts disagree on the number of dimensions!");
+                            abort();
                         }
                         seen_dim = true;
                         num_dims = temp.template get<long>();

@@ -139,7 +139,7 @@ namespace dlib
             if (!table4)
                 delete [] table4;
 
-            throw std::bad_alloc();
+            abort();
         }
         
         

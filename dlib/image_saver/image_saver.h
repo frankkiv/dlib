@@ -53,7 +53,7 @@ namespace dlib
             out.write("BM",2);
             
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
 
 
             unsigned long pad = 4 - (image.nc()*3)%4;
@@ -100,7 +100,7 @@ namespace dlib
 
 
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
 
             // now we write out the pixel data
             for (long row = image.nr()-1; row >= 0; --row)
@@ -126,7 +126,7 @@ namespace dlib
             }
 
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
         }
     };
 
@@ -145,7 +145,7 @@ namespace dlib
             out.write("BM",2);
             
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
 
             unsigned long pad = 4 - image.nc()%4;
             if (pad == 4)
@@ -202,7 +202,7 @@ namespace dlib
             }
 
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
 
             // now we write out the pixel data
             for (long row = image.nr()-1; row >= 0; --row)
@@ -223,7 +223,7 @@ namespace dlib
             }
 
             if (!out)
-                throw image_save_error("error writing image to output stream");
+                abort();
 
         }
     };
@@ -659,7 +659,7 @@ namespace dlib
     {
         std::ofstream fout(file_name.c_str(), std::ios::binary);
         if (!fout)
-            throw image_save_error("Unable to open " + file_name + " for writing.");
+            abort();
         save_dng(image, fout);
     }
 
@@ -673,7 +673,7 @@ namespace dlib
     {
         std::ofstream fout(file_name.c_str(), std::ios::binary);
         if (!fout)
-            throw image_save_error("Unable to open " + file_name + " for writing.");
+            abort();
         save_bmp(image, fout);
     }
 

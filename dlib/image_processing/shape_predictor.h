@@ -424,7 +424,7 @@ namespace dlib
         int version = 0;
         dlib::deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing dlib::shape_predictor.");
+            abort();
         dlib::deserialize(item.initial_shape, in);
         dlib::deserialize(item.forests, in);
         dlib::deserialize(item.anchor_idx, in);

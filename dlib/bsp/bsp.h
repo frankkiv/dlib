@@ -143,7 +143,7 @@ namespace dlib
             }
             else if (status != 0)
             {
-                throw socket_error("Unable to create listening port " + cast_to_string(port) );
+                abort();
             }
 
             port_notify_function(list->get_listening_port());
@@ -151,7 +151,7 @@ namespace dlib
             scoped_ptr<connection> con;
             if (list->accept(con))
             {
-                throw socket_error("Error occurred while accepting new connection");
+                abort();
             }
 
             scoped_ptr<bsp_con> temp(new bsp_con(con));
@@ -171,7 +171,7 @@ namespace dlib
             std::string error_string;
             thread_function thread(connect_all_hostinfo, dlib::ref(cons2), dlib::ref(targets), node_id, dlib::ref(error_string));
             if (error_string.size() != 0)
-                throw socket_error(error_string);
+                abort();
 
             // accept any incoming connections
             for (unsigned long i = 0; i < num_incoming_connections; ++i)
@@ -182,7 +182,7 @@ namespace dlib
                 const unsigned long timeout_milliseconds = 10000;
                 if (list->accept(con, timeout_milliseconds))
                 {
-                    throw socket_error("Error occurred while accepting new connection");
+                    abort();
                 }
 
                 temp.reset(new bsp_con(con));
@@ -422,7 +422,7 @@ namespace dlib
             unsigned long id;
             shared_ptr<std::vector<char> > temp;
             if (receive_data(temp,id))
-                throw dlib::socket_error("Call to bsp_context::receive() got an unexpected message.");
+                abort();
         }
 
         template <typename T>
@@ -431,7 +431,7 @@ namespace dlib
         ) 
         {
             if(!try_receive(item))
-                throw dlib::socket_error("bsp_context::receive(): no messages to receive, all nodes currently blocked.");
+                abort();
         }
 
         template <typename T>
@@ -450,7 +450,7 @@ namespace dlib
         ) 
         {
             if(!try_receive(item, sending_node_id))
-                throw dlib::socket_error("bsp_context::receive(): no messages to receive, all nodes currently blocked.");
+                abort();
         }
 
         template <typename T>

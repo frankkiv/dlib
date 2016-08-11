@@ -289,7 +289,7 @@ namespace dlib
             if (create_new_thread<timer_heavy,&timer_heavy::thread>(*this) == false)
             {
                 running = false;
-                throw dlib::thread_error("error creating new thread in timer_heavy::start");
+                abort();
             }
         }
     }

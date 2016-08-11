@@ -149,7 +149,7 @@ namespace dlib
 
             /*     Return if the value of NPT is unacceptable. */
             if (npt < n + 2 || npt > (n + 2) * np / 2) {
-                throw bobyqa_failure("Return from BOBYQA because NPT is not in the required interval");
+                abort();
                 //goto L40;
             }
 
@@ -188,7 +188,7 @@ namespace dlib
             for (j = 1; j <= i__1; ++j) {
                 temp = xu[j] - xl[j];
                 if (temp < rhobeg + rhobeg) {
-                    throw bobyqa_failure("Return from BOBYQA because one of the differences in x_lower and x_upper is less than 2*rho_begin");
+                    abort();
                     //goto L40;
                 }
                 jsl = isl + j - 1;
@@ -390,7 +390,7 @@ namespace dlib
             }
             fsave = fval[1];
             if (nf < npt) {
-                throw bobyqa_failure("Return from BOBYQA because the objective function has been called max_f_evals times.");
+                abort();
                 //goto L720;
             }
             kbase = 1;
@@ -656,7 +656,7 @@ L190:
             }
             if (nf < 0) {
                 nf = maxfun;
-                throw bobyqa_failure("Return from BOBYQA because the objective function has been called max_f_evals times.");
+                abort();
                 //goto L720;
             }
             nresc = nf;
@@ -780,7 +780,7 @@ L230:
                     if (nf > nresc) {
                         goto L190;
                     }
-                    throw bobyqa_failure("Return from BOBYQA because of much cancellation in a denominator.");
+                    abort();
                     //goto L720;
                 }
 
@@ -841,7 +841,7 @@ L350:
                     if (nf > nresc) {
                         goto L190;
                     }
-                    throw bobyqa_failure("Return from BOBYQA because of much cancellation in a denominator.");
+                    abort();
                     //goto L720;
                 }
             }
@@ -870,7 +870,7 @@ L360:
                 /* L380: */
             }
             if (nf >= maxfun) {
-                throw bobyqa_failure("Return from BOBYQA because the objective function has been called max_f_evals times.");
+                abort();
                 //goto L720;
             }
             ++nf;
@@ -919,7 +919,7 @@ L360:
 
             if (ntrits > 0) {
                 if (vquad >= zero) {
-                    throw bobyqa_failure("Return from BOBYQA because a trust region step has failed to reduce Q.");
+                    abort();
                     //goto L720;
                 }
                 ratio = (f - fopt) / vquad;

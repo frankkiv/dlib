@@ -230,7 +230,7 @@ namespace dlib
             }
 
             if (!msg_buffer.pop(msg))
-                throw dlib::socket_error("Error reading from msg_buffer in dlib::bsp_context.");
+                abort();
 
             if (msg.msg_type == impl2::NODE_TERMINATE)
             {
@@ -239,11 +239,11 @@ namespace dlib
             }
             else if (msg.msg_type == impl2::READ_ERROR)
             {
-                throw dlib::socket_error(msg.data_to_string());
+                abort();
             }
             else if (msg.msg_type == impl2::MESSAGE_HEADER)
             {
-                throw dlib::socket_error("A BSP node received a message after it has terminated.");
+                abort();
             }
             else if (msg.msg_type == impl2::GOT_MESSAGE)
             {
@@ -276,7 +276,7 @@ namespace dlib
                 sout << "A BSP job was allowed to terminate before all sent messages have been received.\n";
                 sout << "There are at least " << outstanding_messages << " messages still in flight.   Make sure all sent messages\n";
                 sout << "have a corresponding call to receive().";
-                throw dlib::socket_error(sout.str());
+                abort();
             }
         }
     }
@@ -368,7 +368,7 @@ namespace dlib
 
             impl1::msg_data data;
             if (!msg_buffer.pop(data, current_epoch))
-                throw dlib::socket_error("Error reading from msg_buffer in dlib::bsp_context.");
+                abort();
 
 
             switch(data.msg_type)
@@ -404,11 +404,11 @@ namespace dlib
                 } break;
 
                 case impl2::READ_ERROR: {
-                    throw dlib::socket_error(data.data_to_string());
+                    abort();
                 } break;
 
                 default: {
-                    throw dlib::socket_error("Unknown message received by dlib::bsp_context");
+                    abort();
                 } break;
             } // end switch()
         } // end while (true)
@@ -477,7 +477,7 @@ namespace dlib
     {
         using namespace impl2;
         if (_cons[target_node_id]->terminated)
-            throw socket_error("Attempt to send a message to a node that has terminated.");
+            abort();
 
         serialize(MESSAGE_HEADER, _cons[target_node_id]->stream);
         serialize(current_epoch, _cons[target_node_id]->stream);

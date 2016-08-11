@@ -158,7 +158,7 @@ namespace dlib
             catch (...)
             {
                 delete p;
-                throw;
+                abort();
             }
         }
 
@@ -184,7 +184,7 @@ namespace dlib
             {
                 if (shared_node) delete shared_node;
                 d(p);
-                throw;
+                abort();
             }
         }
 
@@ -294,7 +294,7 @@ namespace dlib
         )
         {
             if (r.expired()) 
-                throw bad_weak_ptr();
+                abort();
 
             data = r.data;
             shared_node = r.weak_node->shared_node;

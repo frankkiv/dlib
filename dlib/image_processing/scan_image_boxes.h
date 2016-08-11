@@ -261,7 +261,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unsupported version found when deserializing a scan_image_boxes object.");
+            abort();
 
         deserialize(item.feats, in);
         deserialize(item.search_rects, in);
@@ -276,7 +276,7 @@ namespace dlib
         long dims;
         deserialize(dims, in);
         if (item.get_num_dimensions() != dims)
-            throw serialization_error("Number of dimensions in serialized scan_image_boxes doesn't match the expected number.");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------

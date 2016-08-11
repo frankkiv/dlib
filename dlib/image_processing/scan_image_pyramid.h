@@ -167,7 +167,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing a dlib::scan_image_pyramid::detection_template object.");
+                abort();
 
             deserialize(item.object_box, in);
             deserialize(item.rects, in);
@@ -261,7 +261,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 3)
-            throw serialization_error("Unsupported version found when deserializing a scan_image_pyramid object.");
+            abort();
 
         deserialize(item.feats_config, in);
         deserialize(item.feats, in);
@@ -278,7 +278,7 @@ namespace dlib
         long dims;
         deserialize(dims, in);
         if (item.get_num_dimensions() != dims)
-            throw serialization_error("Number of dimensions in serialized scan_image_pyramid doesn't match the expected number.");
+            abort();
     }
 
 // ----------------------------------------------------------------------------------------

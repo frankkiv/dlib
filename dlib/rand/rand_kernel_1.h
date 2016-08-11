@@ -302,7 +302,7 @@ namespace dlib
         int version;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Error deserializing object of type rand: unexpected version."); 
+            abort(); 
 
         deserialize(item.mt, in);
         deserialize(item.seed, in);

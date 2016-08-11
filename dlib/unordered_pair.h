@@ -148,7 +148,7 @@ namespace dlib
             serialize(item.second,out); 
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type unordered_pair"); }
+        { abort(); }
     }
 
     template <typename T>
@@ -165,7 +165,7 @@ namespace dlib
             item = make_unordered_pair(a,b);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type unordered_pair"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------

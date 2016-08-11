@@ -427,7 +427,7 @@ namespace dlib
         int version;
         deserialize(version, in);
         if (version != 2)
-            throw serialization_error("Unexpected version found while deserializing dlib::resizable_tensor.");
+            abort();
 
         long num_samples=0, k=0, nr=0, nc=0;
         deserialize(num_samples, in);
@@ -443,7 +443,7 @@ namespace dlib
             if (sbuf->sgetn((char*)&d,sizeof(d)) != sizeof(d))
             {
                 in.setstate(std::ios::badbit);
-                throw serialization_error("Error reading data while deserializing dlib::resizable_tensor.");
+                abort();
             }
             bo.little_to_host(d);
         }
@@ -588,7 +588,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing dlib::alias_tensor.");
+            abort();
         long num_samples, k, nr, nc;
         deserialize(num_samples, in);
         deserialize(k, in);

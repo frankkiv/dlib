@@ -63,11 +63,11 @@ namespace dlib
         {
             st.get_column_as_object(0,item);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 
@@ -84,12 +84,12 @@ namespace dlib
         {
             const std::string& temp = st.get_column_as_text(0);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
             return temp;
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 
@@ -106,12 +106,12 @@ namespace dlib
         {
             double temp = st.get_column_as_double(0);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
             return temp;
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 
@@ -128,12 +128,12 @@ namespace dlib
         {
             int temp = st.get_column_as_int(0);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
             return temp;
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 
@@ -150,12 +150,12 @@ namespace dlib
         {
             int64 temp = st.get_column_as_int64(0);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
             return temp;
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 
@@ -172,12 +172,12 @@ namespace dlib
         {
             const std::vector<char>& temp = st.get_column_as_blob(0);
             if (st.move_next())
-                throw sqlite_error("query doesn't result in exactly 1 element");
+                abort();
             return temp;
         }
         else
         {
-            throw sqlite_error("query doesn't result in exactly 1 element");
+            abort();
         }
     }
 

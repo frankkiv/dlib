@@ -62,7 +62,7 @@ namespace dlib
         {
             std::string ip;
             if(hostname_to_ip(addr.host_address,ip))
-                throw socket_error(ERESOLVE,"unable to resolve '" + addr.host_address + "' in connect_to()");
+                abort();
 
             return connect_to_ip_and_port(ip, addr.port);
         }
@@ -131,12 +131,12 @@ namespace dlib
 
     inline void serialize ( const bridge_status& , std::ostream& )
     {
-        throw serialization_error("It is illegal to serialize bridge_status objects.");
+        abort();
     }
 
     inline void deserialize ( bridge_status& , std::istream& )
     {
-        throw serialization_error("It is illegal to serialize bridge_status objects.");
+        abort();
     }
 
 // ----------------------------------------------------------------------------------------
@@ -192,11 +192,11 @@ namespace dlib
                 {
                     std::ostringstream sout;
                     sout << "Error, the port " << listen_port << " is already in use.";
-                    throw socket_error(EPORT_IN_USE, sout.str());
+                    abort();
                 }
                 else if (status == OTHER_ERROR)
                 {
-                    throw socket_error("Unable to create listening socket for an unknown reason.");
+                    abort();
                 }
 
                 register_thread(*this, &impl_bridge::transmit_thread);

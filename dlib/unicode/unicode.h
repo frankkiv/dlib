@@ -503,7 +503,7 @@ namespace dlib
             temp.push_back(ch);
 
         if (status < 0)
-            throw invalid_utf8_error();
+            abort();
 
         return temp;
     }

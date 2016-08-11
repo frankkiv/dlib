@@ -27,7 +27,7 @@
         dlib_o_out << "Error occurred in file " << __FILE__ << ".\n";        \
         dlib_o_out << "Failing expression was " << #_exp << ".\n";           \
         dlib_o_out << _message << "\n";                                      \
-        throw dlib::error(dlib_o_out.str());                                 \
+        abort();                                 \
     }}while(0)
 
 namespace test

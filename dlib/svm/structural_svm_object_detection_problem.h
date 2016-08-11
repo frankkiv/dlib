@@ -257,7 +257,7 @@ namespace dlib
                         sout << "rect2: "<< mapped_rects[j] << endl;
                         sout << "match amount:   " << match_amount << endl;
                         sout << "overlap amount: " << overlap_amount << endl;
-                        throw dlib::impossible_labeling_error(sout.str());
+                        abort();
                     }
                 }
             }
@@ -297,7 +297,7 @@ namespace dlib
                     sout << "nearest detection template rect:              "<< mapped_rects[i] << endl;
                     sout << "nearest detection template rect width/height: "<< mapped_rects[i].width()/(double)mapped_rects[i].height() << endl;
                     sout << "nearest detection template rect area:         "<< mapped_rects[i].area() << endl;
-                    throw dlib::impossible_labeling_error(sout.str());
+                    abort();
                 }
 
             }

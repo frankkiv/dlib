@@ -116,7 +116,7 @@ namespace dlib
                 sout << "than the number of elements of one of the training classes." << std::endl;
                 sout << "  folds: "<< folds << std::endl;
                 sout << "  size of class " << i->first << ": "<< i->second << std::endl;
-                throw cross_validation_error(sout.str());
+                abort();
             }
             num_in_test[i->first] = in_test; 
             num_in_train[i->first] = i->second - in_test;

@@ -121,7 +121,7 @@ namespace dlib
             {
                 should_stop_ = true;
                 is_running_ = false;
-                throw thread_error();
+                abort();
             }
             ++threads_started;
         }

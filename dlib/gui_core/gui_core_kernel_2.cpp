@@ -124,7 +124,7 @@ namespace dlib
                     et_signaler.wait();
 
                 if (status == failure_to_init)
-                    throw gui_error("Failed to initialize X11 resources");
+                    abort();
 
                 init_keyboard_mod_masks();
             }

@@ -227,7 +227,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << "Invalid nu of " << nu << ".  It is required that: 0 < nu < " << 2*(scalar_type)count/y.nr();
-                throw invalid_nu_error(sout.str(),nu);
+                abort();
             }
 
             has_slack = false;
@@ -258,7 +258,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << "Invalid nu of " << nu << ".  It is required that: 0 < nu < " << 2*(scalar_type)count/y.nr();
-                throw invalid_nu_error(sout.str(),nu);
+                abort();
             }
         }
 

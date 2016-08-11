@@ -163,7 +163,7 @@ namespace dlib
         catch (serialization_error e)
         { 
             item.clear();
-            throw serialization_error(e.info + "\n   while deserializing object of type map_kernel_1"); 
+            abort(); 
         }
     }
 

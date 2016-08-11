@@ -112,7 +112,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing dlib::policy object.");
+            abort();
         feature_extractor fe;
         matrix<double,0,1> w;
         deserialize(fe, in);

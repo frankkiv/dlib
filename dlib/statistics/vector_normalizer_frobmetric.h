@@ -51,7 +51,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing dlib::frobmetric_training_sample.");
+            abort();
         deserialize(item.anchor_vect, in);
         deserialize(item.near_vects, in);
         deserialize(item.far_vects, in);
@@ -596,7 +596,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1 && version != 2)
-            throw serialization_error("Unsupported version found while deserializing dlib::vector_normalizer_frobmetric.");
+            abort();
 
         deserialize(item.m, in);
         deserialize(item.tform, in);

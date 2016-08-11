@@ -1878,7 +1878,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing dlib::matrix");
+            abort();
         }
     }
 
@@ -1908,9 +1908,9 @@ namespace dlib
             }
 
             if (NR != 0 && nr != NR)
-                throw serialization_error("Error while deserializing a dlib::matrix.  Invalid rows");
+                abort();
             if (NC != 0 && nc != NC)
-                throw serialization_error("Error while deserializing a dlib::matrix.  Invalid columns");
+                abort();
 
             item.set_size(nr,nc);
             for (long r = 0; r < nr; ++r)
@@ -1923,7 +1923,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing a dlib::matrix");
+            abort();
         }
     }
 

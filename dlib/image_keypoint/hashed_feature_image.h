@@ -156,7 +156,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw serialization_error("Unexpected version found while deserializing a dlib::hashed_feature_image object.");
+            abort();
 
         deserialize(item.feats, in);
         deserialize(item.fe, in);

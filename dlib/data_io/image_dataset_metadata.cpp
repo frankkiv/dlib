@@ -31,12 +31,12 @@ namespace dlib
 
             std::ofstream fout((path + "image_metadata_stylesheet.xsl").c_str());
             if (!fout)
-                throw dlib::error("ERROR: Unable to open image_metadata_stylesheet.xsl for writing.");
+                abort();
 
             fout << get_decoded_string();
 
             if (!fout)
-                throw dlib::error("ERROR: Unable to write to image_metadata_stylesheet.xsl.");
+                abort();
         }
 
         void save_image_dataset_metadata (
@@ -50,7 +50,7 @@ namespace dlib
 
             std::ofstream fout(filename.c_str());
             if (!fout)
-                throw dlib::error("ERROR: Unable to open " + filename + " for writing.");
+                abort();
 
             fout << "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
             fout << "<?xml-stylesheet type='text/xsl' href='image_metadata_stylesheet.xsl'?>\n";
@@ -112,7 +112,7 @@ namespace dlib
                 fout << "  </image>\n";
 
                 if (!fout)
-                    throw dlib::error("ERROR: Unable to write to " + filename + ".");
+                    abort();
             }
             fout << "</images>\n";
             fout << "</dataset>";
@@ -167,7 +167,7 @@ namespace dlib
                         {
                             std::ostringstream sout;
                             sout << "Invalid XML document.  Root tag must be <dataset>.  Found <" << name << "> instead.";
-                            throw dlib::error(sout.str());
+                            abort();
                         }
                         else
                         {
@@ -180,16 +180,16 @@ namespace dlib
                     if (name == "box")
                     {
                         if (atts.is_in_list("top")) temp_box.rect.top() = sa = atts["top"];
-                        else throw dlib::error("<box> missing required attribute 'top'");
+                        else abort();
 
                         if (atts.is_in_list("left")) temp_box.rect.left() = sa = atts["left"];
-                        else throw dlib::error("<box> missing required attribute 'left'");
+                        else abort();
 
                         if (atts.is_in_list("width")) temp_box.rect.right() = sa = atts["width"];
-                        else throw dlib::error("<box> missing required attribute 'width'");
+                        else abort();
 
                         if (atts.is_in_list("height")) temp_box.rect.bottom() = sa = atts["height"];
-                        else throw dlib::error("<box> missing required attribute 'height'");
+                        else abort();
 
                         if (atts.is_in_list("difficult")) temp_box.difficult = sa = atts["difficult"];
                         if (atts.is_in_list("truncated")) temp_box.truncated = sa = atts["truncated"];
@@ -206,10 +206,10 @@ namespace dlib
                     {
                         point temp;
                         if (atts.is_in_list("x")) temp.x() = sa = atts["x"];
-                        else throw dlib::error("<part> missing required attribute 'x'");
+                        else abort();
 
                         if (atts.is_in_list("y")) temp.y() = sa = atts["y"];
-                        else throw dlib::error("<part> missing required attribute 'y'");
+                        else abort();
 
                         if (atts.is_in_list("name")) 
                         {
@@ -219,12 +219,12 @@ namespace dlib
                             }
                             else
                             {
-                                throw dlib::error("<part> with name '" + atts["name"] + "' is defined more than one time in a single box.");
+                                abort();
                             }
                         }
                         else 
                         {
-                            throw dlib::error("<part> missing required attribute 'name'");
+                            abort();
                         }
                     }
                     else if (name == "image")
@@ -232,14 +232,14 @@ namespace dlib
                         temp_image.boxes.clear();
 
                         if (atts.is_in_list("file")) temp_image.filename = atts["file"];
-                        else throw dlib::error("<image> missing required attribute 'file'");
+                        else abort();
                     }
 
                     ts.push_back(name);
                 }
                 catch (error& e)
                 {
-                    throw dlib::error("Error on line " + cast_to_string(line_number) + ": " + e.what());
+                    abort();
                 }
             }
 
@@ -307,7 +307,7 @@ namespace dlib
             {
                 std::ostringstream sout;
                 sout << "There is a fatal error on line " << line_number << " so parsing will now halt.";
-                throw dlib::error(sout.str());
+                abort();
             }
         };
 
@@ -323,7 +323,7 @@ namespace dlib
 
             std::ifstream fin(filename.c_str());
             if (!fin)
-                throw dlib::error("ERROR: unable to open " + filename + " for reading.");
+                abort();
 
             xml_parser parser;
             parser.add_document_handler(dh);

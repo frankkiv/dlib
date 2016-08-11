@@ -53,7 +53,7 @@ namespace test
             dlib_o_out << "\n\nError occurred at line " << line << ".\n";    
             dlib_o_out << "Error occurred in file " << file << ".\n";      
             dlib_o_out << "Failing expression was " << _exp_str << ".\n";           
-            throw dlib::error(dlib_o_out.str());      
+            abort();      
         }
     }                                                                      
 

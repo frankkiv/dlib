@@ -180,7 +180,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         { 
-            throw serialization_error(e.info + "\n   while serializing object of type circular_buffer"); 
+            abort(); 
         }
 
     }
@@ -206,7 +206,7 @@ namespace dlib
         catch (serialization_error& e)
         { 
             item.clear();
-            throw serialization_error(e.info + "\n   while deserializing object of type circular_buffer"); 
+            abort(); 
         }
     }
 

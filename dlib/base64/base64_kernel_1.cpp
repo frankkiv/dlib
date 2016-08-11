@@ -49,7 +49,7 @@ namespace dlib
         {
             if (encode_table) delete [] encode_table;
             if (decode_table) delete [] decode_table;
-            throw;
+            abort();
         }
 
         // now set up the tables with the right stuff
@@ -190,20 +190,20 @@ namespace dlib
                     case CR:
                         ch = '\r';
                         if (out.sputn(&ch,1)!=1)
-                            throw std::ios_base::failure("error occured in the base64 object");
+                            abort();
                         break;
                     case LF:
                         ch = '\n';
                         if (out.sputn(&ch,1)!=1)
-                            throw std::ios_base::failure("error occured in the base64 object");
+                            abort();
                         break;
                     case CRLF:
                         ch = '\r';
                         if (out.sputn(&ch,1)!=1)
-                            throw std::ios_base::failure("error occured in the base64 object");
+                            abort();
                         ch = '\n';
                         if (out.sputn(&ch,1)!=1)
-                            throw std::ios_base::failure("error occured in the base64 object");
+                            abort();
                         break;
                     default:
                         DLIB_CASSERT(false,"this should never happen");
@@ -235,7 +235,7 @@ namespace dlib
                 // write the encoded bytes to the output stream
                 if (out.sputn(reinterpret_cast<char*>(&outbuf),4)!=4)
                 {
-                    throw std::ios_base::failure("error occured in the base64 object");
+                    abort();
                 }
 
                 // get 3 more input bytes
@@ -265,7 +265,7 @@ namespace dlib
                 // write the encoded bytes to the output stream
                 if (out.sputn(reinterpret_cast<char*>(&outbuf),4)!=4)
                 {
-                    throw std::ios_base::failure("error occured in the base64 object");
+                    abort();
                 }
 
 
@@ -292,7 +292,7 @@ namespace dlib
                 // write the encoded bytes to the output stream
                 if (out.sputn(reinterpret_cast<char*>(&outbuf),4)!=4)
                 {
-                    throw std::ios_base::failure("error occured in the base64 object");
+                    abort();
                 }
 
                 break;
@@ -370,7 +370,7 @@ namespace dlib
                 // write the encoded bytes to the output stream
                 if (out.sputn(reinterpret_cast<char*>(&outbuf),outsize)!=outsize)
                 {
-                    throw std::ios_base::failure("error occured in the base64 object");
+                    abort();
                 }
             }
 
@@ -388,7 +388,7 @@ namespace dlib
             sout << inbuf_pos << " extra characters were found at the end of the encoded data."
                 << "  This may indicate that the data stream has been truncated.";
             // this happens if we hit EOF in the middle of decoding a 24bit block.
-            throw decode_error(sout.str());
+            abort();
         }
 
         // make sure the stream buffer flushes to its I/O channel

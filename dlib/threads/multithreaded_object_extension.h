@@ -106,7 +106,7 @@ namespace dlib
                 is_running_ = false;
                 should_stop_ = true;
                 s.broadcast();
-                throw;
+                abort();
             }
         }
 

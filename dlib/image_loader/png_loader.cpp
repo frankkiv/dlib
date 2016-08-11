@@ -111,43 +111,43 @@ namespace dlib
         ld_.reset(new LibpngData);
         if ( filename == NULL )
         {
-            throw image_load_error("png_loader: invalid filename, it is NULL");
+            abort();
         }
         FILE *fp = fopen( filename, "rb" );
         if ( !fp )
         {
-            throw image_load_error(std::string("png_loader: unable to open file ") + filename);
+            abort();
         }
         png_byte sig[8];
         if (fread( sig, 1, 8, fp ) != 8)
         {
             fclose( fp );
-            throw image_load_error(std::string("png_loader: error reading file ") + filename);
+            abort();
         }
         if ( png_sig_cmp( sig, 0, 8 ) != 0 )
         {
             fclose( fp );
-            throw image_load_error(std::string("png_loader: format error in file ") + filename);
+            abort();
         }
         ld_->png_ptr_ = png_create_read_struct( PNG_LIBPNG_VER_STRING, NULL, &png_loader_user_error_fn_silent, &png_loader_user_warning_fn_silent );
         if ( ld_->png_ptr_ == NULL )
         {
             fclose( fp );
-            throw image_load_error(std::string("png_loader: parse error in file ") + filename);
+            abort();
         }
         ld_->info_ptr_ = png_create_info_struct( ld_->png_ptr_ );
         if ( ld_->info_ptr_ == NULL )
         {
             fclose( fp );
             png_destroy_read_struct( &( ld_->png_ptr_ ), ( png_infopp )NULL, ( png_infopp )NULL );
-            throw image_load_error(std::string("png_loader: parse error in file ") + filename);
+            abort();
         }
         ld_->end_info_ = png_create_info_struct( ld_->png_ptr_ );
         if ( ld_->end_info_ == NULL )
         {
             fclose( fp );
             png_destroy_read_struct( &( ld_->png_ptr_ ), &( ld_->info_ptr_ ), ( png_infopp )NULL );
-            throw image_load_error(std::string("png_loader: parse error in file ") + filename);
+            abort();
         }
 
         if (setjmp(png_jmpbuf(ld_->png_ptr_)))
@@ -155,7 +155,7 @@ namespace dlib
             // If we get here, we had a problem writing the file 
             fclose(fp);
             png_destroy_read_struct( &( ld_->png_ptr_ ), &( ld_->info_ptr_ ), &( ld_->end_info_ ) );
-            throw image_load_error(std::string("png_loader: parse error in file ") + filename);
+            abort();
         }
 
         png_set_palette_to_rgb(ld_->png_ptr_);
@@ -181,14 +181,14 @@ namespace dlib
         {
             fclose( fp );
             png_destroy_read_struct( &( ld_->png_ptr_ ), &( ld_->info_ptr_ ), &( ld_->end_info_ ) );
-            throw image_load_error(std::string("png_loader: unsupported color type in file ") + filename);
+            abort();
         }
 
         if (bit_depth_ != 8 && bit_depth_ != 16)
         {
             fclose( fp );
             png_destroy_read_struct( &( ld_->png_ptr_ ), &( ld_->info_ptr_ ), &( ld_->end_info_ ) );
-            throw image_load_error("png_loader: unsupported bit depth of " + cast_to_string(bit_depth_) + " in file " + std::string(filename));
+            abort();
         }
 
         ld_->row_pointers_ = png_get_rows( ld_->png_ptr_, ld_->info_ptr_ );
@@ -197,7 +197,7 @@ namespace dlib
         if ( ld_->row_pointers_ == NULL )
         {
             png_destroy_read_struct( &( ld_->png_ptr_ ), &( ld_->info_ptr_ ), &( ld_->end_info_ ) );
-            throw image_load_error(std::string("png_loader: parse error in file ") + filename);
+            abort();
         }
     }
 

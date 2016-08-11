@@ -113,7 +113,7 @@ struct segmenter_type
             case 5: return segmenter5(x);
             case 6: return segmenter6(x);
             case 7: return segmenter7(x);
-            default: throw dlib::error("Invalid mode");
+            default: abort();
         }
     }
 
@@ -131,7 +131,7 @@ struct segmenter_type
             case 13: return segmenter13(x);
             case 14: return segmenter14(x);
             case 15: return segmenter15(x);
-            default: throw dlib::error("Invalid mode");
+            default: abort();
         }
     }
 
@@ -157,7 +157,7 @@ struct segmenter_type
             case 14: return segmenter14.get_weights(); 
             case 15: return segmenter15.get_weights(); 
 
-            default: throw dlib::error("Invalid mode");
+            default: abort();
         }
     }
 
@@ -183,7 +183,7 @@ struct segmenter_type
             case 13: serialize(item.segmenter13, out); break;
             case 14: serialize(item.segmenter14, out); break;
             case 15: serialize(item.segmenter15, out); break;
-            default: throw dlib::error("Invalid mode");
+            default: abort();
         }
     }
     friend void deserialize (segmenter_type& item, std::istream& in)
@@ -208,7 +208,7 @@ struct segmenter_type
             case 13: deserialize(item.segmenter13, in); break;
             case 14: deserialize(item.segmenter14, in); break;
             case 15: deserialize(item.segmenter15, in); break;
-            default: throw dlib::error("Invalid mode");
+            default: abort();
         }
     }
 
@@ -457,7 +457,7 @@ segmenter_type train_dense (
                   configure_trainer(samples, trainer, params);
                   res.segmenter7 = trainer.train(samples, segments);
                 } break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 
@@ -526,7 +526,7 @@ segmenter_type train_sparse (
                   configure_trainer(samples, trainer, params);
                   res.segmenter15 = trainer.train(samples, segments);
                 } break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 
@@ -586,7 +586,7 @@ const segmenter_test test_sequence_segmenter1 (
         case 5: res = test_sequence_segmenter(segmenter.segmenter5, samples, segments); break;
         case 6: res = test_sequence_segmenter(segmenter.segmenter6, samples, segments); break;
         case 7: res = test_sequence_segmenter(segmenter.segmenter7, samples, segments); break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 
@@ -616,7 +616,7 @@ const segmenter_test test_sequence_segmenter2 (
         case 13: res = test_sequence_segmenter(segmenter.segmenter13, samples, segments); break;
         case 14: res = test_sequence_segmenter(segmenter.segmenter14, samples, segments); break;
         case 15: res = test_sequence_segmenter(segmenter.segmenter15, samples, segments); break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 
@@ -690,7 +690,7 @@ const segmenter_test cross_validate_sequence_segmenter1 (
                   configure_trainer(samples, trainer, params);
                   res = cross_validate_sequence_segmenter(trainer, samples, segments, folds);
                 } break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 
@@ -763,7 +763,7 @@ const segmenter_test cross_validate_sequence_segmenter2 (
                   configure_trainer(samples, trainer, params);
                   res = cross_validate_sequence_segmenter(trainer, samples, segments, folds);
                 } break;
-        default: throw dlib::error("Invalid mode");
+        default: abort();
     }
 
 

@@ -33,7 +33,7 @@ inline simple_object_detector_py train_simple_object_detector_on_images_py (
 {
     const unsigned long num_images = len(pyimages);
     if (num_images != len(pyboxes))
-        throw dlib::error("The length of the boxes list must match the length of the images list.");
+        abort();
 
     // We never have any ignore boxes for this version of the API.
     std::vector<std::vector<rectangle> > ignore(num_images), boxes(num_images);
@@ -52,7 +52,7 @@ inline simple_test_results test_simple_object_detector_with_images_py (
 {
     const unsigned long num_images = len(pyimages);
     if (num_images != len(pyboxes))
-        throw dlib::error("The length of the boxes list must match the length of the images list.");
+        abort();
 
     // We never have any ignore boxes for this version of the API.
     std::vector<std::vector<rectangle> > ignore(num_images), boxes(num_images);
@@ -99,10 +99,10 @@ inline void find_candidate_object_locations_py (
     else if (is_rgb_python_image(pyimage))
         assign_image(image, numpy_rgb_image(pyimage));
     else
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
 
     if (boost::python::len(pykvals) != 3)
-        throw dlib::error("kvals must be a tuple with three elements for start, end, num.");
+        abort();
 
     double start = extract<double>(pykvals[0]);
     double end   = extract<double>(pykvals[1]);

@@ -42,7 +42,7 @@ void image_window_set_image (
     else if (is_rgb_python_image(img))
         return win.set_image(numpy_rgb_image(img));
     else
-        throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+        abort();
 }
 
 void add_overlay_rect (

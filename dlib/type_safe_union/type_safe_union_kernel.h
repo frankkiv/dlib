@@ -540,7 +540,7 @@ namespace dlib
             if (contains<T>())
                 return *static_cast<const T*>(mem.get());
             else
-                throw bad_type_safe_union_cast();
+                abort();
         }
 
         template <typename T>
@@ -551,7 +551,7 @@ namespace dlib
             if (contains<T>())
                 return *static_cast<T*>(mem.get());
             else
-                throw bad_type_safe_union_cast();
+                abort();
         }
 
         template <typename T>
@@ -642,7 +642,7 @@ namespace dlib
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while serializing an object of type type_safe_union");
+            abort();
         }
     }
 
@@ -694,12 +694,12 @@ namespace dlib
                 case 19: deserialize(item.template get<T19>(), in);  break;
                 case 20: deserialize(item.template get<T20>(), in);  break;
 
-                default: throw serialization_error("Corrupt data detected while deserializing type_safe_union");
+                default: abort();
             }
         }
         catch (serialization_error& e)
         {
-            throw serialization_error(e.info + "\n   while deserializing an object of type type_safe_union");
+            abort();
         }
     }
 

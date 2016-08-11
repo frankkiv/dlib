@@ -95,7 +95,7 @@ namespace dlib
             derived<U>* d = dynamic_cast<derived<U>*>(data.get());
             if (d == 0)
             {
-                throw bad_any_cast();
+                abort();
             }
 
             return d->item;
@@ -109,7 +109,7 @@ namespace dlib
             derived<U>* d = dynamic_cast<derived<U>*>(data.get());
             if (d == 0)
             {
-                throw bad_any_cast();
+                abort();
             }
 
             return d->item;

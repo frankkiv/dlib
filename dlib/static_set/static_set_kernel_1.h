@@ -70,7 +70,7 @@ namespace dlib
                     item.d = 0;
                 }
 
-                throw serialization_error(e.info + "\n   while deserializing object of type static_set_kernel_1"); 
+                abort(); 
             }
             catch (...)
             {
@@ -81,7 +81,7 @@ namespace dlib
                     item.d = 0;
                 }
 
-                throw;
+                abort();
             }
         } 
 

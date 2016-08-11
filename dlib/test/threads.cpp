@@ -31,7 +31,7 @@ namespace
         DLIB_TEST(v4.get() == 5);
 
         print_spinner();
-        auto except = dlib::async([](){ dlib::sleep(300); throw error("oops"); });
+        auto except = dlib::async([](){ dlib::sleep(300); abort();
         bool got_exception = false;
         try
         {

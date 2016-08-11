@@ -169,7 +169,7 @@ namespace dlib
                             et_signaler.wait();
 
                         if (status == failure_to_init)
-                            throw gui_error("Failed to start event thread");
+                            abort();
                     }
                 }
             }
@@ -1292,7 +1292,7 @@ namespace dlib
                                 // is thrown.
                                 if (hdc != NULL)
                                     EndPaint (hwnd, &ps);    
-                                throw;
+                                abort();
                             }
                         }   
                         return 0 ;
@@ -1503,7 +1503,7 @@ namespace dlib
                 globals->dwStyle = dwStyle_;
                 if (PostMessage(globals->helper_window,WM_USER+CREATE_WINDOW,0,0)==0)
                 {
-                    throw gui_error("Unable to schedule function for execution in event handling thread.");
+                    abort();
                 } 
 
                 // wait for our request to be serviced
@@ -1597,7 +1597,7 @@ namespace dlib
         
         if (PostMessage(globals->helper_window,WM_USER+USER_EVENTS_READY,0,0)==0)
         {
-            throw gui_error("Unable to schedule function for execution in event handling thread.");
+            abort();
         } 
     }
 
@@ -1632,7 +1632,7 @@ namespace dlib
         hwnd = gui_core_kernel_1_globals::make_window(style);                
 
         if (hwnd == NULL)
-            throw gui_error("unable to create base_window");
+            abort();
 
         auto_mutex M(wm);
 
@@ -1740,7 +1740,7 @@ namespace dlib
 
             if (PostMessage(globals->helper_window,WM_USER+CALL_SET_WINDOW_TITLE,(WPARAM)hwnd,0)==0)
             {
-                throw gui_error("Unable to schedule SetWindowText function for execution in event handling thread.");
+                abort();
             } 
 
             // wait for any SetWindowText() calls to finish
@@ -1853,7 +1853,7 @@ namespace dlib
 
             if (PostMessage(globals->helper_window,WM_USER+CALL_MOVE_WINDOW,0,0)==0)
             {
-                throw gui_error("Unable to schedule MoveWindow function for execution in event handling thread.");
+                abort();
             } 
 
             // wait for any MoveWindow calls to finish
@@ -1914,7 +1914,7 @@ namespace dlib
 
             if (PostMessage(globals->helper_window,WM_USER+CALL_MOVE_WINDOW,0,0)==0)
             {
-                throw gui_error("Unable to schedule MoveWindow function for execution in event handling thread.");
+                abort();
             } 
 
             // wait for any MoveWindow calls to finish

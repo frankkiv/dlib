@@ -32,7 +32,7 @@ namespace dlib
         {
             std::ifstream file(file_name.c_str(), std::ios::in|std::ios::binary);
             if (!file)
-                throw image_load_error("Unable to open file: " + file_name);
+                abort();
 
             char buffer[9];
             file.read((char*)buffer, 8);
@@ -89,22 +89,22 @@ namespace dlib
                 GifFileType* gif = DGifOpenFileName(file_name.c_str() DLIB_GIFLIB_HANDLE_DIFF_VERSIONS);
                 try
                 {
-                    if (gif == 0) throw image_load_error("Couldn't open file " + file_name);
+                    if (gif == 0) abort();
                     if (DGifSlurp(gif) != GIF_OK)
-                        throw image_load_error("Error reading from " + file_name);
+                        abort();
 
-                    if (gif->ImageCount != 1)   throw image_load_error("Dlib only supports reading GIF files containing one image.");
-                    if (gif->SavedImages == 0)  throw image_load_error("Unsupported GIF format 1.");
+                    if (gif->ImageCount != 1)   abort();
+                    if (gif->SavedImages == 0)  abort();
 
                     ColorMapObject* cmo=gif->SColorMap?gif->SColorMap:gif->SavedImages->ImageDesc.ColorMap;
 
-                    if (cmo==0)                                             throw image_load_error("Unsupported GIF format 2.");
-                    if (cmo->Colors == 0)                                   throw image_load_error("Unsupported GIF format 3.");
-                    if (gif->SavedImages->ImageDesc.Width != gif->SWidth)   throw image_load_error("Unsupported GIF format 4.");
-                    if (gif->SavedImages->ImageDesc.Height != gif->SHeight) throw image_load_error("Unsupported GIF format 5.");
-                    if (gif->SavedImages->RasterBits == 0)                  throw image_load_error("Unsupported GIF format 6.");
-                    if (gif->Image.Top != 0)                                throw image_load_error("Unsupported GIF format 7.");
-                    if (gif->Image.Left != 0)                               throw image_load_error("Unsupported GIF format 8.");
+                    if (cmo==0)                                             abort();
+                    if (cmo->Colors == 0)                                   abort();
+                    if (gif->SavedImages->ImageDesc.Width != gif->SWidth)   abort();
+                    if (gif->SavedImages->ImageDesc.Height != gif->SHeight) abort();
+                    if (gif->SavedImages->RasterBits == 0)                  abort();
+                    if (gif->Image.Top != 0)                                abort();
+                    if (gif->Image.Left != 0)                               abort();
 
                     img.set_size(gif->SHeight, gif->SWidth);
                     unsigned char* raster = gif->SavedImages->RasterBits;
@@ -120,7 +120,7 @@ namespace dlib
                                 for (long c = 0; c < img.nc(); ++c)
                                 {
                                     if (*raster >= cmo->ColorCount)
-                                        throw image_load_error("Invalid GIF color value");
+                                        abort();
                                     rgb_pixel p;
                                     p.red = colormap[*raster].Red;
                                     p.green = colormap[*raster].Green;
@@ -138,7 +138,7 @@ namespace dlib
                             for (long c = 0; c < img.nc(); ++c)
                             {
                                 if (*raster >= cmo->ColorCount)
-                                    throw image_load_error("Invalid GIF color value");
+                                    abort();
                                 rgb_pixel p;
                                 p.red = colormap[*raster].Red;
                                 p.green = colormap[*raster].Green;
@@ -154,7 +154,7 @@ namespace dlib
                 {
                     if (gif)
                         DGifCloseFile(gif DLIB_GIFLIB_HANDLE_DIFF_VERSIONS);
-                    throw;
+                    abort();
                 }
                 return;
             }
@@ -177,7 +177,7 @@ namespace dlib
             sout << "So don't #define it in one file. Instead, use a compiler switch like -DDLIB_JPEG_SUPPORT\n";
             sout << "so it takes effect for your entire application.";
 #endif
-            throw image_load_error(sout.str());
+            abort();
         }
         else if (im_type == image_file_type::PNG)
         {
@@ -194,7 +194,7 @@ namespace dlib
             sout << "So don't #define it in one file. Instead, use a compiler switch like -DDLIB_PNG_SUPPORT\n";
             sout << "so it takes effect for your entire application.";
 #endif
-            throw image_load_error(sout.str());
+            abort();
         }
         else if (im_type == image_file_type::GIF)
         {
@@ -210,11 +210,11 @@ namespace dlib
             sout << "So don't #define it in one file. Instead, use a compiler switch like -DDLIB_GIF_SUPPORT\n";
             sout << "so it takes effect for your entire application.";
 #endif
-            throw image_load_error(sout.str());
+            abort();
         }
         else
         {
-            throw image_load_error("Unknown image file format: Unable to load image in file " + file_name);
+            abort();
         }
     }
 

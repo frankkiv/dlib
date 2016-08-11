@@ -121,7 +121,7 @@ namespace dlib
                 {
                     std::ostringstream sout;
                     sout << "In one_vs_all_trainer, no trainer registered for the " << l << " label.";
-                    throw invalid_label(sout.str(), l);
+                    abort();
                 }
             }
 
@@ -132,7 +132,7 @@ namespace dlib
 
             if (helper.error_message.size() != 0)
             {
-                throw dlib::error("binary trainer threw while training one vs. all classifier.  Error was: " + helper.error_message);
+                abort();
             }
             return trained_function_type(helper.dfs);
         }

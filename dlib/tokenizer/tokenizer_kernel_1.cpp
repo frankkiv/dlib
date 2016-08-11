@@ -30,7 +30,7 @@ namespace dlib
         {
             if (headset) delete [] headset;
             if (bodyset) delete [] headset;
-            throw;
+            abort();
         }
     }
 

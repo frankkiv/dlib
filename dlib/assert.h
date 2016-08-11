@@ -145,7 +145,7 @@ namespace dlib
         dlib_o_out << "Error detected in function " << DLIB_FUNCTION_NAME << ".\n\n";      \
         dlib_o_out << "Failing expression was " << #_exp << ".\n";           \
         dlib_o_out << std::boolalpha << _message << "\n";                    \
-        throw dlib::fatal_error(dlib::EBROKEN_ASSERT,dlib_o_out.str());      \
+        abort();      \
     }}                                                                      
 
 

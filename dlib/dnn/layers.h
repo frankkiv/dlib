@@ -202,17 +202,17 @@ namespace dlib
                 deserialize(item.weight_decay_multiplier, in);
                 deserialize(item.bias_learning_rate_multiplier, in);
                 deserialize(item.bias_weight_decay_multiplier, in);
-                if (item.padding_y_ != _padding_y) throw serialization_error("Wrong padding_y found while deserializing dlib::con_");
-                if (item.padding_x_ != _padding_x) throw serialization_error("Wrong padding_x found while deserializing dlib::con_");
-                if (num_filters != _num_filters) throw serialization_error("Wrong num_filters found while deserializing dlib::con_");
-                if (nr != _nr) throw serialization_error("Wrong nr found while deserializing dlib::con_");
-                if (nc != _nc) throw serialization_error("Wrong nc found while deserializing dlib::con_");
-                if (stride_y != _stride_y) throw serialization_error("Wrong stride_y found while deserializing dlib::con_");
-                if (stride_x != _stride_x) throw serialization_error("Wrong stride_x found while deserializing dlib::con_");
+                if (item.padding_y_ != _padding_y) abort();
+                if (item.padding_x_ != _padding_x) abort();
+                if (num_filters != _num_filters) abort();
+                if (nr != _nr) abort();
+                if (nc != _nc) abort();
+                if (stride_y != _stride_y) abort();
+                if (stride_x != _stride_x) abort();
             }
             else
             {
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::con_.");
+                abort();
             }
         }
 
@@ -400,15 +400,15 @@ namespace dlib
             }
             else
             {
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::max_pool_.");
+                abort();
             }
 
-            if (item.padding_y_ != _padding_y) throw serialization_error("Wrong padding_y found while deserializing dlib::max_pool_");
-            if (item.padding_x_ != _padding_x) throw serialization_error("Wrong padding_x found while deserializing dlib::max_pool_");
-            if (_nr != nr) throw serialization_error("Wrong nr found while deserializing dlib::max_pool_");
-            if (_nc != nc) throw serialization_error("Wrong nc found while deserializing dlib::max_pool_");
-            if (_stride_y != stride_y) throw serialization_error("Wrong stride_y found while deserializing dlib::max_pool_");
-            if (_stride_x != stride_x) throw serialization_error("Wrong stride_x found while deserializing dlib::max_pool_");
+            if (item.padding_y_ != _padding_y) abort();
+            if (item.padding_x_ != _padding_x) abort();
+            if (_nr != nr) abort();
+            if (_nc != nc) abort();
+            if (_stride_y != stride_y) abort();
+            if (_stride_x != stride_x) abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const max_pool_& item)
@@ -580,15 +580,15 @@ namespace dlib
             }
             else
             {
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::avg_pool_.");
+                abort();
             }
 
-            if (item.padding_y_ != _padding_y) throw serialization_error("Wrong padding_y found while deserializing dlib::avg_pool_");
-            if (item.padding_x_ != _padding_x) throw serialization_error("Wrong padding_x found while deserializing dlib::avg_pool_");
-            if (_nr != nr) throw serialization_error("Wrong nr found while deserializing dlib::avg_pool_");
-            if (_nc != nc) throw serialization_error("Wrong nc found while deserializing dlib::avg_pool_");
-            if (_stride_y != stride_y) throw serialization_error("Wrong stride_y found while deserializing dlib::avg_pool_");
-            if (_stride_x != stride_x) throw serialization_error("Wrong stride_x found while deserializing dlib::avg_pool_");
+            if (item.padding_y_ != _padding_y) abort();
+            if (item.padding_x_ != _padding_x) abort();
+            if (_nr != nr) abort();
+            if (_nc != nc) abort();
+            if (_stride_y != stride_y) abort();
+            if (_stride_x != stride_x) abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const avg_pool_& item)
@@ -780,12 +780,12 @@ namespace dlib
             if (mode == CONV_MODE) 
             {
                 if (version != "bn_con2")
-                    throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::bn_.");
+                    abort();
             }
             else // must be in FC_MODE
             {
                 if (version != "bn_fc2")
-                    throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::bn_.");
+                    abort();
             }
 
             deserialize(item.params, in);
@@ -992,7 +992,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "fc_2")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::fc_.");
+                abort();
 
             deserialize(item.num_outputs, in);
             deserialize(item.num_inputs, in);
@@ -1001,7 +1001,7 @@ namespace dlib
             deserialize(item.biases, in);
             int bmode = 0;
             deserialize(bmode, in);
-            if (bias_mode != (fc_bias_mode)bmode) throw serialization_error("Wrong fc_bias_mode found while deserializing dlib::fc_");
+            if (bias_mode != (fc_bias_mode)bmode) abort();
             deserialize(item.learning_rate_multiplier, in);
             deserialize(item.weight_decay_multiplier, in);
             deserialize(item.bias_learning_rate_multiplier, in);
@@ -1158,7 +1158,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "dropout_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::dropout_.");
+                abort();
             deserialize(item.drop_rate, in);
             deserialize(item.mask, in);
         }
@@ -1256,7 +1256,7 @@ namespace dlib
             }
 
             if (version != "multiply_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::multiply_.");
+                abort();
             deserialize(item.val, in);
         }
 
@@ -1420,7 +1420,7 @@ namespace dlib
             }
 
             if (version != "affine_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::affine_.");
+                abort();
             deserialize(item.params, in);
             deserialize(item.gamma, in);
             deserialize(item.beta, in);
@@ -1509,7 +1509,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "add_prev_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::add_prev_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const add_prev_& item)
@@ -1597,7 +1597,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "relu_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::relu_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const relu_& )
@@ -1676,7 +1676,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "prelu_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::prelu_.");
+                abort();
             deserialize(item.params, in);
             deserialize(item.initial_param_value, in);
         }
@@ -1746,7 +1746,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "sig_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::sig_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const sig_& )
@@ -1811,7 +1811,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "htan_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::htan_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const htan_& )
@@ -1876,7 +1876,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "softmax_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::softmax_.");
+                abort();
         }
 
         friend std::ostream& operator<<(std::ostream& out, const softmax_& )
@@ -2009,7 +2009,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "concat_")
-                throw serialization_error("Unexpected version '"+version+"' found while deserializing dlib::concat_.");
+                abort();
             size_t count_tags;
             deserialize(count_tags, in);
             if (count_tags != tag_count())

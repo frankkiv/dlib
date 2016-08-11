@@ -171,7 +171,7 @@ namespace dlib
             catch(...)
             {
                 set_size(0);
-                throw;
+                abort();
             }
         }
     }

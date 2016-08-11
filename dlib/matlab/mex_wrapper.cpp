@@ -521,13 +521,13 @@ namespace mex_binding
         {
             std::ostringstream sout;
             sout << " argument " << arg_idx+1 << " must be a cell array";
-            throw invalid_args_exception(sout.str());
+            abort();
         }
         if (nr != 1 && nc != 1)
         {
             std::ostringstream sout;
             sout << " argument " << arg_idx+1 << " must be a cell array with exactly 1 row or 1 column (i.e. a row or column vector)";
-            throw invalid_args_exception(sout.str());
+            abort();
         }
 
         const long size = nr*nc;
@@ -544,7 +544,7 @@ namespace mex_binding
                 std::ostringstream sout;
                 sout << "Error in argument " << arg_idx+1 << ": element " << i+1 << " of cell array not the expected type.\n";
                 sout << "\t" << e.msg;
-                throw invalid_args_exception(sout.str());
+                abort();
             }
         }
 
@@ -629,7 +629,7 @@ namespace mex_binding
             {
                 std::ostringstream sout;
                 sout << " argument " << arg_idx+1 << " must be a scalar";
-                throw invalid_args_exception(sout.str());
+                abort();
             }
 
             assign_scalar(arg_idx, arg , mxGetScalar(prhs));
@@ -648,7 +648,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a 3-D NxMx3 image matrix of uint8";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 const long rows = mxGetDimensions(prhs)[0];
@@ -661,7 +661,7 @@ namespace mex_binding
             {
                 std::ostringstream sout;
                 sout << " argument " << arg_idx+1 << " must be a 2-D matrix (got a " << num_dims << "-D matrix)";
-                throw invalid_args_exception(sout.str());
+                abort();
             }
 
 
@@ -671,7 +671,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of doubles";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
                 if (is_column_major_matrix<T>::value)
                     call_private_set_mxArray(arg, (mxArray*)prhs);
@@ -684,7 +684,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of single/float";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 if (is_column_major_matrix<T>::value)
@@ -698,7 +698,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of logical elements.";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const bool*)mxGetData(prhs), nc, nr));
@@ -709,7 +709,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of uint8";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const dlib::uint8*)mxGetData(prhs), nc, nr));
@@ -720,7 +720,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of int8";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const dlib::int8*)mxGetData(prhs), nc, nr));
@@ -732,7 +732,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of int16";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -744,7 +744,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of uint16";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -757,7 +757,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of int32";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -770,7 +770,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of uint32";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -783,7 +783,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of uint64";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -796,7 +796,7 @@ namespace mex_binding
                 {
                     std::ostringstream sout;
                     sout << " argument " << arg_idx+1 << " must be a matrix of int64";
-                    throw invalid_args_exception(sout.str());
+                    abort();
                 }
 
                 assign_mat(arg_idx, arg , pointer_to_matrix((const type*)mxGetData(prhs), nc, nr));
@@ -818,7 +818,7 @@ namespace mex_binding
             {
                 std::ostringstream sout;
                 sout << " argument " << arg_idx+1 << " must be a function handle.";
-                throw invalid_args_exception(sout.str());
+                abort();
             }
             assign_function_handle(arg_idx, arg, prhs);
         }
@@ -839,7 +839,7 @@ namespace mex_binding
         {
             std::ostringstream sout;
             sout << " argument " << arg_idx+1 << " must be a struct";
-            throw invalid_args_exception(sout.str());
+            abort();
         }
 
         arg.set_struct_handle(prhs);
@@ -856,7 +856,7 @@ namespace mex_binding
         {
             std::ostringstream sout;
             sout << " argument " << arg_idx+1 << " must be a char string";
-            throw invalid_args_exception(sout.str());
+            abort();
         }
 
         const long nr = mxGetM(prhs);
@@ -867,7 +867,7 @@ namespace mex_binding
         {
             std::ostringstream sout;
             sout << " argument " << arg_idx+1 << " encountered an error while calling mxGetString()";
-            throw invalid_args_exception(sout.str());
+            abort();
         }
         arg.resize(size);
     }
@@ -3108,7 +3108,7 @@ namespace mex_binding
         int status = mexCallMATLAB(nlhs, plhs, nrhs, prhs, function_name.c_str());
         if (status)
         {
-            throw dlib::error("Error, an exception was thrown when we tried to call the MATLAB function '" + function_name + "'.");
+            abort();
         }
     }
 
@@ -4344,11 +4344,11 @@ namespace dlib
     void matlab_struct::sub::get(T& item) const
     {
         if (struct_handle == 0)
-            throw dlib::error("Attempt to access data in an empty struct.");
+            abort();
 
         mxArray* temp = mxGetFieldByNumber((const mxArray*)struct_handle, 0, field_idx);
         if (temp == 0)
-            throw dlib::error("Attempt to access data in an empty struct.");
+            abort();
 
         try
         {
@@ -4359,7 +4359,7 @@ namespace dlib
             std::ostringstream sout;
             sout << "Struct field '" << mxGetFieldNameByNumber((const mxArray*)struct_handle, field_idx) << "' can't be interpreted as the requested type."
                 << endl << e.msg;
-            throw dlib::error(sout.str());
+            abort();
         }
     }
 
@@ -4367,13 +4367,13 @@ namespace dlib
     operator[] (const std::string& name) const
     {
         if (struct_handle == 0)
-            throw dlib::error("Struct does not have a field named '" + name + "'.");
+            abort();
 
         matlab_struct::sub temp;
         temp.struct_handle = struct_handle;
         temp.field_idx = mxGetFieldNumber((const mxArray*)struct_handle, name.c_str());
         if (temp.field_idx == -1 )
-            throw dlib::error("Struct does not have a field named '" + name + "'.");
+            abort();
         return temp;
     }
 
@@ -4389,7 +4389,7 @@ namespace dlib
             struct_handle = mxCreateStructArray(1, dims, 1, &name_str);
             should_free = true;
             if (struct_handle == 0)
-                throw dlib::error("Error creating struct from within mex function.");
+                abort();
         }
 
 
@@ -4399,7 +4399,7 @@ namespace dlib
         {
             if ((temp.field_idx=mxAddField((mxArray*)struct_handle, name.c_str())) == -1)
             {
-                throw dlib::error("Unable to add field '"+name + "' to struct.");
+                abort();
             }
         }
         return temp;
@@ -4409,19 +4409,19 @@ namespace dlib
     operator[] (const std::string& name) const
     {
         if (struct_handle == 0)
-            throw dlib::error("Struct does not have a field named '" + name + "'.");
+            abort();
 
         matlab_struct::sub temp;
         temp.struct_handle = mxGetFieldByNumber((const mxArray*)struct_handle, 0, field_idx);
         if (temp.struct_handle == 0)
-            throw dlib::error("Failure to get struct field while calling mxGetFieldByNumber()");
+            abort();
 
         if (!mxIsStruct((const mxArray*)temp.struct_handle))
-            throw dlib::error("Struct sub-field element '"+name+"' is not another struct.");
+            abort();
 
         temp.field_idx = mxGetFieldNumber((const mxArray*)temp.struct_handle, name.c_str());
         if (temp.field_idx == -1 )
-            throw dlib::error("Struct does not have a field named '" + name + "'.");
+            abort();
         return temp;
     }
 
@@ -4429,7 +4429,7 @@ namespace dlib
     operator[] (const std::string& name) 
     {
         if (struct_handle == 0)
-            throw dlib::error("Struct does not have a field named '" + name + "'.");
+            abort();
 
         matlab_struct::sub temp;
         temp.struct_handle = mxGetFieldByNumber((const mxArray*)struct_handle, 0, field_idx);
@@ -4444,7 +4444,7 @@ namespace dlib
             mwSize dims[1] = {1};
             temp.struct_handle = mxCreateStructArray(1, dims, 0, 0);
             if (temp.struct_handle == 0)
-                throw dlib::error("Failure to create new sub-struct field");
+                abort();
             mxSetFieldByNumber((mxArray*)struct_handle, 0, field_idx, (mxArray*)temp.struct_handle);
         }
 
@@ -4453,7 +4453,7 @@ namespace dlib
         {
             if ((temp.field_idx=mxAddField((mxArray*)temp.struct_handle, name.c_str())) == -1)
             {
-                throw dlib::error("Unable to add field '"+name + "' to struct.");
+                abort();
             }
         }
         return temp;
@@ -4526,7 +4526,7 @@ namespace dlib
     )
     {
         if (utIsInterruptPending())
-            throw mex_binding::user_hit_ctrl_c();
+            abort();
     }
 }
 

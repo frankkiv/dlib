@@ -44,7 +44,7 @@ namespace dlib
         ifstream fin(file_name.c_str());
 
         if (!fin)
-            throw sample_data_io_error("Unable to open file " + file_name);
+            abort();
 
         string line;
         istringstream sin;
@@ -71,7 +71,7 @@ namespace dlib
             sin >> label;
 
             if (!sin)
-                throw sample_data_io_error("On line: " + cast_to_string(line_num) + ", error while reading file " + file_name );
+                abort();
 
             // eat whitespace
             sin >> ws;
@@ -83,7 +83,7 @@ namespace dlib
 
                 // ignore what should be a : character
                 if (sin.get() != ':')
-                    throw sample_data_io_error("On line: " + cast_to_string(line_num) + ", error while reading file " + file_name);
+                    abort();
 
                 sin >> value;
 
@@ -207,7 +207,7 @@ namespace dlib
         fout.precision(14);
 
         if (!fout)
-            throw sample_data_io_error("Unable to open file " + file_name);
+            abort();
 
         for (unsigned long i = 0; i < samples.size(); ++i)
         {
@@ -221,7 +221,7 @@ namespace dlib
             fout << "\n";
 
             if (!fout)
-                throw sample_data_io_error("Error while writing to file " + file_name);
+                abort();
         }
 
     }
@@ -249,7 +249,7 @@ namespace dlib
         fout.precision(14);
 
         if (!fout)
-            throw sample_data_io_error("Unable to open file " + file_name);
+            abort();
 
         for (unsigned long i = 0; i < samples.size(); ++i)
         {
@@ -263,7 +263,7 @@ namespace dlib
             fout << "\n";
 
             if (!fout)
-                throw sample_data_io_error("Error while writing to file " + file_name);
+                abort();
         }
 
     }

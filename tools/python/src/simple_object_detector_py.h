@@ -109,7 +109,7 @@ namespace dlib
         }
         else
         {
-            throw dlib::error("Unsupported image type, must be 8bit gray or RGB image.");
+            abort();
         }
     }
 

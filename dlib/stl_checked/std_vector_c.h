@@ -297,7 +297,7 @@ namespace dlib
                 serialize(item[i],out);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while serializing object of type std_vector_c"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ namespace dlib
                 deserialize(item[i],in);
         }
         catch (serialization_error& e)
-        { throw serialization_error(e.info + "\n   while deserializing object of type std_vector_c"); }
+        { abort(); }
     }
 
 // ----------------------------------------------------------------------------------------

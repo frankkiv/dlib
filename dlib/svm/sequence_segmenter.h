@@ -428,7 +428,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::sequence_segmenter.");
+                abort();
 
             // Try to check if the saved model is compatible with the current feature
             // extractor.

@@ -136,7 +136,7 @@ namespace dlib
             int version = 0;
             deserialize(version, in);
             if (version != 1)
-                throw serialization_error("Unexpected version found while deserializing dlib::track_association_function.");
+                abort();
 
             deserialize(item.assoc, in);
         }

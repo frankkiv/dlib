@@ -268,7 +268,7 @@ namespace dlib
                     std::ostringstream sout;
                     sout << "Parse tree refers to element " << tree[i].c.begin 
                          << " of sequence which is only of size " << words.size() << ".";
-                    throw parse_tree_to_string_error(sout.str());
+                    abort();
                 }
             }
 
@@ -290,7 +290,7 @@ namespace dlib
                     std::ostringstream sout;
                     sout << "Parse tree refers to element " << tree[i].c.k 
                          << " of sequence which is only of size " << words.size() << ".";
-                    throw parse_tree_to_string_error(sout.str());
+                    abort();
                 }
             }
 

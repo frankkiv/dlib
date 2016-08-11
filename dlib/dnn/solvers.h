@@ -113,7 +113,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "sgd2")
-                throw serialization_error("Unexpected version found while deserializing dlib::sgd.");
+                abort();
             deserialize(item.v, in);
             deserialize(item.weight_decay, in);
             deserialize(item.momentum, in);
@@ -284,7 +284,7 @@ namespace dlib
             std::string version;
             deserialize(version, in);
             if (version != "adam2")
-                throw serialization_error("Unexpected version found while deserializing dlib::adam.");
+                abort();
             deserialize(item.m, in);
             deserialize(item.v, in);
             deserialize(item.s, in);

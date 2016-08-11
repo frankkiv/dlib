@@ -121,7 +121,7 @@ namespace dlib
             {
                 delete order_1[j];
             }
-            throw;
+            abort();
         }
     }
 

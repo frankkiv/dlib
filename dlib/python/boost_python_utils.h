@@ -70,7 +70,7 @@ boost::shared_ptr<T> load_object_from_file (
 {
     std::ifstream fin(filename.c_str(), std::ios::binary);
     if (!fin)
-        throw dlib::error("Unable to open " + filename);
+        abort();
     boost::shared_ptr<T> obj(new T());
     deserialize(*obj, fin);
     return obj;

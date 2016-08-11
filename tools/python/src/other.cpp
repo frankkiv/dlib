@@ -58,7 +58,7 @@ list _max_cost_assignment (
 )
 {
     if (cost.nr() != cost.nc())
-        throw dlib::error("The input matrix must be square.");
+        abort();
 
     // max_cost_assignment() only works with integer matrices, so convert from
     // double to integer.

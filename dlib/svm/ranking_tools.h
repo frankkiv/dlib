@@ -62,7 +62,7 @@ namespace dlib
         int version = 0;
         deserialize(version, in);
         if (version != 1)
-            throw dlib::serialization_error("Wrong version found while deserializing dlib::ranking_pair");
+            abort();
 
         deserialize(item.relevant, in);
         deserialize(item.nonrelevant, in);

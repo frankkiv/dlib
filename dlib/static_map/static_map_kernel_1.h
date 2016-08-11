@@ -100,7 +100,7 @@ namespace dlib
                     item.r = 0;
                 }
 
-                throw serialization_error(e.info + "\n   while deserializing object of type static_map_kernel_1"); 
+                abort(); 
             }
             catch (...)
             {
@@ -116,7 +116,7 @@ namespace dlib
                     item.r = 0;
                 }
 
-                throw;
+                abort();
             }
         }
 
@@ -341,7 +341,7 @@ namespace dlib
             domain* old_d = d;
             d = new domain[source.size()];
             try { r = new range[source.size()]; }
-            catch (...) { delete [] d; d = old_d; throw; }
+            catch (...) { delete [] d; d = old_d; abort(); }
 
             map_size = source.size();
 
@@ -374,7 +374,7 @@ namespace dlib
             domain* old_d = d;
             d = new domain[source.size()];
             try { r = new range[source.size()]; }
-            catch (...) { delete [] d; d = old_d; throw; }
+            catch (...) { delete [] d; d = old_d; abort(); }
 
             map_size = source.size();
 

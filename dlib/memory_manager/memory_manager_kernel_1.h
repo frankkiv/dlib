@@ -124,7 +124,7 @@ namespace dlib
                 catch (...)
                 {
                     next->next = n;
-                    throw;
+                    abort();
                 }
 
                 next = n;
@@ -143,7 +143,7 @@ namespace dlib
                 {
                     // construction of the new object threw so delete the block of memory
                     ::operator delete ( static_cast<void*>(temp));
-                    throw;
+                    abort();
                 }
             }
 

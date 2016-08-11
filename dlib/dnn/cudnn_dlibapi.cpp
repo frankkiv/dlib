@@ -43,7 +43,7 @@ do{                                                                             
         std::ostringstream sout;                                               \
         sout << "Error while calling " << #call << " in file " << __FILE__ << ":" << __LINE__ << ". ";\
         sout << "code: " << error << ", reason: " << cudnn_get_error_string(error);\
-        throw dlib::cudnn_error(sout.str());                            \
+        abort();                            \
     }                                                                          \
 }while(false)
 
@@ -931,7 +931,7 @@ namespace dlib
             catch(...)
             {
                 clear();
-                throw;
+                abort();
             }
         }
 
@@ -1166,7 +1166,7 @@ namespace dlib
             catch(...)
             {
                 clear();
-                throw;
+                abort();
             }
         }
 
