@@ -1,4 +1,6 @@
-                            Frank Noted 
+============================Frank Noted================================= 
+
+
 1. First You have  to install opencv
 
 Install OpenCV 3 on Mac OSX with brew
@@ -15,7 +17,7 @@ brew install opencv3 --with-contrib
 # For intermediate and advanced users. 
 brew install opencv3 --with-contrib --with-cuda --with-ffmpeg --with-tbb --with-qt5
 
-#if you already install the opencv version 2.4.xx
+# If you already install the opencv version 2.4.xx
 go to 
     example/CMakeList.txt:125
 chage back to 
@@ -27,23 +29,27 @@ chage back to
     mkdir build
     cd build
     cmake ..
-#On my OSX
-#   cmake -DCMAKE_C_COMPILER=/usr/local/bin/gcc-5 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-5 ..
-#or cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
+
+# On my OSX
+#    cmake -DCMAKE_C_COMPILER=/usr/local/bin/gcc-5 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-5 ..
+# or cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
     
     vim CMakeCache.txt
-    #find   CMAKE_CXX_FLAGS:STRING
-    #add -fcilkplus -lcilkrts
+    # Find   CMAKE_CXX_FLAGS:STRING
+    # Add -fcilkplus -lcilkrts
 
     make 
 
 3. How to run 
 
-# use default camera
-    ./webcam_face_pose_ex 
+# Use default camera
+    CILK_NWORKERS=1 ./webcam_face_pose_ex 
 
-# use video clip
-    ./webcam_face_pose_ex TestVideo.avi
+# Use video clip
+    CILK_NWORKERS=1 ./webcam_face_pose_ex TestVideo.avi
+
+# Issue
+    CILK_NWORKERS= 2,3,4 get Error
 
 dlib C++ library
 
