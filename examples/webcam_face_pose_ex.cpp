@@ -49,7 +49,7 @@ float fpsUpdate(float dt)
     static float _total_frames = 0.0f;  
     static float _total_time = 0.0f;  
     ++_total_frames;  
-    _total_time += dt/CLOCKS_PER_SEC;  
+    _total_time += dt/1000000;  
     float fps = _total_frames/_total_time;
 
     return fps;
@@ -157,6 +157,7 @@ int main(int argc, char *argv[])
         // fps counter begin
         int counter = 0;
         int frame_ct = 0;
+        struct timeval t1, t2;
         // fps counter end
 
         // Load face detection and pose estimation models.
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
         for(;;)
         {
             // fps counter begin
-            clock_t start=CLOCK();
+            gettimeofday(&t1,0);
             // fps counter end
 
             // Grab a frame
@@ -230,8 +231,9 @@ int main(int argc, char *argv[])
             
             // fps counter begin
             frame_ct++;
-            double dur = CLOCK()-start;
-            printf("frame processing time %f s. avg fps %f. frame no %d. \n",dur/CLOCKS_PER_SEC, fpsUpdate(dur), frame_ct);
+            gettimeofday(&t2,0);
+            float dur = (((t2.tv_sec - t1.tv_sec)*1000000L+t2.tv_usec) - t1.tv_usec);
+            printf("frame processing time %f s. avg fps %f. frame no %d. \n",dur/1000000, fpsUpdate(dur), frame_ct);
             // fps counter end
 
             if(cv::waitKey(1)==27)

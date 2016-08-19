@@ -8,6 +8,8 @@
 #include <vector>
 #include "box_overlap_testing.h"
 #include "full_object_detection.h"
+#include <time.h>
+#include <sys/time.h>
 
 namespace dlib
 {
@@ -430,6 +432,10 @@ namespace dlib
         double adjust_threshold
     ) 
     {
+        //Frank add start for calculate processing time
+        struct timeval t1, t2;
+        gettimeofday(&t1,0);
+        //Frank add end for calculate processing time
         scanner.load(img);
         std::vector<std::pair<double, rectangle> > dets;
         std::vector<rect_detection> dets_accum;
@@ -458,6 +464,10 @@ namespace dlib
 
             final_dets.push_back(dets_accum[i]);
         }
+        //Frank add start for calculate processing time
+        gettimeofday(&t2,0);
+        printf("Each frame processing Time in microseconds: %ld microseconds\n",((t2.tv_sec - t1.tv_sec)*1000000L+t2.tv_usec) - t1.tv_usec);
+        //Frank add end for calculate processing time
     }
 
 // ----------------------------------------------------------------------------------------
