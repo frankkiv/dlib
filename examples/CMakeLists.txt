@@ -121,8 +121,9 @@ add_example(using_custom_kernels_ex)
 add_example(video_tracking_ex)
 add_example(xml_parser_ex)
 
-
-find_package(OpenCV QUIET)
+# for opencv3 on OSX
+find_package(OpenCV HINTS /usr/local/opt/opencv3)
+#find_package(OpenCV QUIET)
 if (OpenCV_FOUND)
    include_directories(${OpenCV_INCLUDE_DIRS})
 

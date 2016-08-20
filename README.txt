@@ -1,5 +1,57 @@
+============================Frank Noted================================= 
 
-                              dlib C++ library
+
+1. First You have  to install opencv
+
+Install OpenCV 3 on Mac OSX with brew
+reference  https://www.learnopencv.com/install-opencv-3-on-yosemite-osx-10-10-x/
+
+You can now install OpenCV 3 using brew. See the next section to install from source. Life is good again!
+
+brew tap homebrew/science
+brew install opencv3
+You can choose the different options you can use with install in the subsections below. Here is what I recommend
+
+# Easy install for beginners
+brew install opencv3 --with-contrib 
+# For intermediate and advanced users. 
+brew install opencv3 --with-contrib --with-cuda --with-ffmpeg --with-tbb --with-qt5
+
+# If you already install the opencv version 2.4.xx
+go to 
+    example/CMakeList.txt:125
+chage back to 
+    find_package(OpenCV QUIET)
+
+2. How to build
+
+    cd example
+    mkdir build
+    cd build
+    cmake ..
+
+# On my OSX
+#    cmake -DCMAKE_C_COMPILER=/usr/local/bin/gcc-5 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-5 ..
+# or cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ ..
+    
+    vim CMakeCache.txt
+    # Find   CMAKE_CXX_FLAGS:STRING
+    # Add -fcilkplus -lcilkrts
+
+    make 
+
+3. How to run 
+
+# Use default camera
+    CILK_NWORKERS=1 ./webcam_face_pose_ex 
+
+# Use video clip
+    CILK_NWORKERS=1 ./webcam_face_pose_ex TestVideo.avi
+
+# Issue
+    CILK_NWORKERS= 2,3,4 get Error
+
+dlib C++ library
 
 Dlib is a modern C++ toolkit containing machine learning algorithms and tools
 for creating complex software in C++ to solve real world problems.  See
