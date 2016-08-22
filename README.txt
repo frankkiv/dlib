@@ -36,7 +36,8 @@ chage back to
     
     vim CMakeCache.txt
     # Find   CMAKE_CXX_FLAGS:STRING
-    # Add -fcilkplus -lcilkrts
+    # Add -I/usr/local/Cellar/tbb/4.4-20160128/include -ltbb -L/usr/local/Cellar/tbb/4.4-20160128/lib
+    (if you use homebrew install tbb)
 
     make 
 
