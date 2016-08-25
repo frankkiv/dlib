@@ -12,6 +12,7 @@
 
 //Frank add start for tbb parallel
 #include "tbb/tbb.h"
+#include <tbb/task_arena.h>
 //Frank add end for tbb parallel
 
 namespace dlib
@@ -500,7 +501,6 @@ namespace dlib
                 unsigned long i = 0;
                 while (i < w.row_filters.size() && w.row_filters[i].size() == 0) 
                     ++i;
-
                 int start_filter = i;
 
                 int num_filters = 0;
@@ -522,6 +522,8 @@ namespace dlib
 
                 // for(int k = i; k < w.row_filters.size(); ++k)
                 //_Cilk_for(int k = i; k < w.row_filters.size(); ++k)
+                tbb::task_arena my_arena(4);
+                my_arena.execute( [&]{
                 tbb::parallel_for((int)i, (int)w.row_filters.size(), [&](int k)
                 {
                     array2d<float> saliency_tmp;
@@ -531,6 +533,7 @@ namespace dlib
                         area = float_spatially_filter_image_separable(feats[k], saliency_tmp, w.row_filters[k][j], w.col_filters[k][j], scratch, false);
                         swap(saliency_tmp, saliency_images[filters_before[k]-start_filter+j]);
                     }
+                });
                 });
 
                 saliency_image.clear();
@@ -772,6 +775,8 @@ namespace dlib
             // for(unsigned int pyr_level = 0; pyr_level < levels; pyr_level++){
             //_Cilk_for(unsigned int pyr_level = 0; pyr_level < levels; pyr_level++){
             //    printf("FRANK  feats size %lu level%lu Cilk number%d\n",feats.size(), pyr_level, __cilkrts_get_worker_number());
+            tbb::task_arena my_arena(4);
+            my_arena.execute( [&]{
             tbb::parallel_for(0, (int)levels, [&](int pyr_level){
 
                 if(pyr_level == 0)
@@ -782,6 +787,7 @@ namespace dlib
                 {
                     fe(image_pyramid[pyr_level-1], feats[pyr_level], cell_size,filter_rows_padding,filter_cols_padding);
                 }
+            });
             });
 
         }
@@ -1035,6 +1041,8 @@ namespace dlib
 
             // for all pyramid levels
             //for (unsigned long l = 0; l < feats.size(); ++l){
+            tbb::task_arena my_arena(4);
+            my_arena.execute( [&]{
             tbb::parallel_for(0, num_features, [&](int l){
                 
                 array2d<float> saliency_image;
@@ -1056,6 +1064,7 @@ namespace dlib
                         }
                     }
                 }
+            });
             });
             for(size_t i = 0; i < dets_conc.size(); ++i){
                 dets.push_back(dets_conc[i]);
