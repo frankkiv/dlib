@@ -227,7 +227,9 @@ int main(int argc, char *argv[])
             }
             // Image save 
             // cv::imwrite("../faces/Test/frame"+std::to_string(frame_ct)+".jpg", im);
-            cv::imshow((cv::String)"Face Detect Render", im);
+            
+            //Comment cuz opencv3.1 bug https://github.com/opencv/opencv/issues/5874
+            //cv::imshow((cv::String)"Face Detect Render", im);
             
             // fps counter begin
             frame_ct++;
@@ -236,8 +238,9 @@ int main(int argc, char *argv[])
             printf("frame processing time %f s. avg fps %f. frame no %d. \n",dur/1000000, fpsUpdate(dur), frame_ct);
             // fps counter end
 
-            if(cv::waitKey(1)==27)
-                exit(0);
+            //Comment cuz opencv3.1 bug https://github.com/opencv/opencv/issues/5874
+            //if(cv::waitKey(1)==27)
+            //    exit(0);
     
         }
         cap.release();

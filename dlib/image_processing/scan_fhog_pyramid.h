@@ -1027,13 +1027,16 @@ namespace dlib
         ) 
         {
             dets.clear();
-
-            array2d<float> saliency_image;
             pyramid_type pyr;
-
+            
+            int num_features = feats.size();
+            std::vector<std::pair<double, rectangle> > dets_conc;
+            
             // for all pyramid levels
-            for (unsigned long l = 0; l < feats.size(); ++l)
+            //for (unsigned long l = 0; l < feats.size(); ++l)
+            _Cilk_for(unsigned long l = 0; l < num_features; ++l)
             {
+                array2d<float> saliency_image;
                 const rectangle area = apply_filters_to_fhog_parallel(w, feats[l], saliency_image);
 
                 // now search the saliency image for any detections
@@ -1047,10 +1050,13 @@ namespace dlib
                             rectangle rect = fe.feats_to_image(centered_rect(point(c,r),det_box_width,det_box_height), 
                                 cell_size, filter_rows_padding, filter_cols_padding);
                             rect = pyr.rect_up(rect, l);
-                            dets.push_back(std::make_pair(saliency_image[r][c], rect));
+                            dets_conc.push_back(std::make_pair(saliency_image[r][c], rect));
                         }
                     }
                 }
+            }
+            for(size_t i = 0; i < dets_conc.size(); ++i){
+                dets.push_back(dets_conc[i]);
             }
 
             std::sort(dets.rbegin(), dets.rend(), compare_pair_rect);
