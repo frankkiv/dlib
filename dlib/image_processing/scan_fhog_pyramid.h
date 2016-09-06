@@ -522,7 +522,9 @@ namespace dlib
 
                 // for(int k = i; k < w.row_filters.size(); ++k)
                 //_Cilk_for(int k = i; k < w.row_filters.size(); ++k)
-                tbb::task_arena my_arena(4);
+                //DEBUG
+                //printf("float_spatially_filter_image_separable w.row_filters.size()=%d \n",w.row_filters.size());
+                tbb::task_arena my_arena(1);
                 my_arena.execute( [&]{
                 tbb::parallel_for((int)i, (int)w.row_filters.size(), [&](int k)
                 {
@@ -774,7 +776,8 @@ namespace dlib
 
             // for(unsigned int pyr_level = 0; pyr_level < levels; pyr_level++){
             //_Cilk_for(unsigned int pyr_level = 0; pyr_level < levels; pyr_level++){
-            //    printf("FRANK  feats size %lu level%lu Cilk number%d\n",feats.size(), pyr_level, __cilkrts_get_worker_number());
+            //DEBUG
+            //printf("create_fhog_pyramid_parallel pyr_level=%d \n",levels);
             tbb::task_arena my_arena(4);
             my_arena.execute( [&]{
             tbb::parallel_for(0, (int)levels, [&](int pyr_level){
@@ -1041,6 +1044,8 @@ namespace dlib
 
             // for all pyramid levels
             //for (unsigned long l = 0; l < feats.size(); ++l){
+            //DEBUG
+            //printf("detect_from_fhog_pyramid_parallel num_features=%d \n",num_features);
             tbb::task_arena my_arena(4);
             my_arena.execute( [&]{
             tbb::parallel_for(0, num_features, [&](int l){

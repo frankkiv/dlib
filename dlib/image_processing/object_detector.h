@@ -11,6 +11,11 @@
 #include <time.h>
 #include <sys/time.h>
 
+//Frank add start for tbb parallel
+#include "tbb/tbb.h"
+#include <tbb/task_arena.h>
+//Frank add end for tbb parallel
+
 namespace dlib
 {
 
@@ -437,20 +442,30 @@ namespace dlib
         gettimeofday(&t1,0);
         //Frank add end for calculate processing time
         scanner.load(img);
-        std::vector<std::pair<double, rectangle> > dets;
+        //std::vector<std::pair<double, rectangle> > dets;
+        tbb::concurrent_vector<rect_detection> dets_conc;
         std::vector<rect_detection> dets_accum;
-        for (unsigned long i = 0; i < w.size(); ++i)
-        {
-            const double thresh = w[i].w(scanner.get_num_dimensions());
-            scanner.detect(w[i].get_detect_argument(), dets, thresh + adjust_threshold);
-            for (unsigned long j = 0; j < dets.size(); ++j)
+        //for (unsigned long i = 0; i < w.size(); ++i)
+        tbb::task_arena my_arena(4);
+        my_arena.execute( [&]{
+            tbb::parallel_for(0, (int)w.size(), [&](int i)
             {
-                rect_detection temp;
-                temp.detection_confidence = dets[j].first-thresh;
-                temp.weight_index = i;
-                temp.rect = dets[j].second;
-                dets_accum.push_back(temp);
-            }
+                std::vector<std::pair<double, rectangle> > dets;
+                const double thresh = w[i].w(scanner.get_num_dimensions());
+                scanner.detect(w[i].get_detect_argument(), dets, thresh + adjust_threshold);
+                for (unsigned long j = 0; j < dets.size(); ++j)
+                {
+                    rect_detection temp;
+                    temp.detection_confidence = dets[j].first-thresh;
+                    temp.weight_index = i;
+                    temp.rect = dets[j].second;
+                    dets_conc.push_back(temp);
+                }
+            });
+        });
+        
+        for(size_t i = 0; i < dets_conc.size(); ++i){
+            dets_accum.push_back(dets_conc[i]);    
         }
 
         // Do non-max suppression
