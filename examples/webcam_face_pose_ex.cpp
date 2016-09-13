@@ -158,6 +158,7 @@ int main(int argc, char *argv[])
         int counter = 0;
         int frame_ct = 0;
         struct timeval t1, t2;
+        int facecnt=0;
         // fps counter end
 
         // Load face detection and pose estimation models.
@@ -205,6 +206,7 @@ int main(int argc, char *argv[])
 
                 for (unsigned long i = 0; i < faces.size(); ++i)
                 {
+                    facecnt++;
                     cout << endl <<" DEBUG: faces= "<< endl;
 
                     // Resize obtained rectangle for full resolution image. 
@@ -227,6 +229,7 @@ int main(int argc, char *argv[])
             }
             // Image save 
             // cv::imwrite("../faces/Test/frame"+std::to_string(frame_ct)+".jpg", im);
+            printf("Taotal Face:%d\n",facecnt);
             cv::imshow((cv::String)"Face Detect Render", im);
             
             // fps counter begin
